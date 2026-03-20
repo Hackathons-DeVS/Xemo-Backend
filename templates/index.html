@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xemo Visual Study Lab</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <main class="shell">
+        <section class="hero">
+            <div class="hero-copy">
+                <p class="eyebrow">Study Buddy Prototype</p>
+                <h1>Xemo Visual Study Lab</h1>
+                <p class="lede">
+                    Build visuals for a topic fast, then combine textbooks, notes, and previous year papers into one exam-prep workspace.
+                </p>
+            </div>
+            <div class="hero-panel">
+                <p class="panel-title">Quick Visuals</p>
+                <form id="upload-form" class="upload-form">
+                    <label class="file-picker" for="pdf-file">
+                        <span>Upload a topic PDF</span>
+                        <input id="pdf-file" name="file" type="file" accept="application/pdf" required>
+                    </label>
+                    <div class="button-row">
+                        <button id="upload-button" type="submit">Generate Visuals</button>
+                        <button id="study-plan-button" type="button" disabled>Generate Study Plan</button>
+                    </div>
+                </form>
+                <div id="status-banner" class="status-banner idle">Waiting for a PDF upload.</div>
+                <div id="run-metadata" class="run-metadata"></div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">Source Library</p>
+                    <h2>Multi-Source Exam Prep</h2>
+                </div>
+                <p class="section-note">Upload textbooks, notes, and previous year papers so Gemini can use all of them together.</p>
+            </div>
+
+            <div class="library-layout">
+                <section class="library-upload-panel">
+                    <h3>Add Study Sources</h3>
+                    <form id="library-form" class="library-form">
+                        <div class="field-grid">
+                            <label>
+                                <span>Source Type</span>
+                                <select id="library-source-type" name="source_type">
+                                    <option value="textbook">Textbook</option>
+                                    <option value="topic_pdf">Topic PDF</option>
+                                    <option value="previous_year_paper">Previous Year Paper</option>
+                                    <option value="teacher_notes">Teacher Notes</option>
+                                    <option value="student_notes">Student Notes</option>
+                                    <option value="syllabus">Syllabus</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </label>
+                            <label>
+                                <span>Title</span>
+                                <input id="library-title" name="title" type="text" placeholder="Class 11 Gravitation Notes">
+                            </label>
+                            <label>
+                                <span>Subject</span>
+                                <input id="library-subject" name="subject" type="text" placeholder="Physics">
+                            </label>
+                            <label>
+                                <span>Topic</span>
+                                <input id="library-topic" name="topic" type="text" placeholder="Gravitation">
+                            </label>
+                            <label class="full-span">
+                                <span>Institution or Board</span>
+                                <input id="library-institution" name="institution" type="text" placeholder="CBSE / Your School / University">
+                            </label>
+                        </div>
+
+                        <label class="file-picker" for="library-files">
+                            <span>Upload PDFs or text files</span>
+                            <input id="library-files" name="files" type="file" accept=".pdf,.txt,.md" multiple>
+                        </label>
+
+                        <label class="textarea-field">
+                            <span>Or paste notes / question paper text</span>
+                            <textarea id="library-pasted-text" name="pasted_text" rows="8" placeholder="Paste notes, typed question papers, or teacher handouts here..."></textarea>
+                        </label>
+
+                        <button id="library-upload-button" type="submit">Save To Library</button>
+                    </form>
+                </section>
+
+                <section class="library-documents-panel">
+                    <div class="library-panel-header">
+                        <div>
+                            <h3>Saved Sources</h3>
+                            <p id="library-summary">No study sources yet.</p>
+                        </div>
+                    </div>
+                    <div id="library-documents" class="library-documents"></div>
+                </section>
+            </div>
+
+            <section class="toolkit-panel">
+                <div class="toolkit-header">
+                    <div>
+                        <p class="eyebrow">Exam Tools</p>
+                        <h3>Generate Useful Outputs</h3>
+                    </div>
+                    <p class="section-note">These tools use the saved source library, with extra emphasis on previous papers and teacher notes.</p>
+                </div>
+
+                <div class="field-grid compact">
+                    <label>
+                        <span>Subject</span>
+                        <input id="action-subject" type="text" placeholder="Physics">
+                    </label>
+                    <label>
+                        <span>Topic Focus</span>
+                        <input id="action-topic" type="text" placeholder="Gravitation">
+                    </label>
+                    <label>
+                        <span>Institution</span>
+                        <input id="action-institution" type="text" placeholder="CBSE / School / University">
+                    </label>
+                    <label>
+                        <span>Flashcards</span>
+                        <input id="flashcard-count" type="number" min="4" max="30" value="12">
+                    </label>
+                    <label>
+                        <span>Mock Marks</span>
+                        <input id="mock-marks" type="number" min="10" max="100" value="50">
+                    </label>
+                    <label>
+                        <span>Mock Duration (min)</span>
+                        <input id="mock-duration" type="number" min="15" max="180" value="60">
+                    </label>
+                </div>
+
+                <div class="button-row">
+                    <button id="flashcards-button" type="button">Generate Flashcards</button>
+                    <button id="exam-insights-button" type="button">Analyze Previous Papers</button>
+                    <button id="mock-paper-button" type="button">Generate Mock Paper</button>
+                </div>
+            </section>
+        </section>
+
+        <section id="flashcards-section" class="content-section hidden">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">Flashcards</p>
+                    <h2 id="flashcards-title">Flashcard Deck</h2>
+                </div>
+                <p id="flashcards-overview" class="section-note"></p>
+            </div>
+            <div id="flashcards-grid" class="flashcards-grid"></div>
+        </section>
+
+        <section id="exam-insights-section" class="content-section hidden">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">Exam Analysis</p>
+                    <h2 id="exam-insights-title">Exam Insights</h2>
+                </div>
+                <p id="exam-insights-overview" class="section-note"></p>
+            </div>
+            <div id="exam-insights-grid" class="insights-grid"></div>
+        </section>
+
+        <section id="mock-paper-section" class="content-section hidden">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">Mock Test</p>
+                    <h2 id="mock-paper-title">Mock Paper</h2>
+                </div>
+                <p class="section-note">Generated from the current study-source library.</p>
+            </div>
+            <div id="mock-paper-output" class="mock-paper-output"></div>
+        </section>
+
+        <section id="visual-section" class="content-section hidden">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">Visual Output</p>
+                    <h2>Topic Visualizations</h2>
+                </div>
+                <p class="section-note">Pick a topic to open its full visual workspace.</p>
+            </div>
+
+            <div class="topic-browser">
+                <aside class="topic-selector-panel">
+                    <div class="topic-selector-header">
+                        <h3>Topics</h3>
+                        <p>Each topic opens its own larger canvas.</p>
+                    </div>
+                    <div id="topic-list" class="topic-list"></div>
+                </aside>
+
+                <section class="topic-detail-panel">
+                    <div id="topic-detail-empty" class="topic-detail-empty">
+                        Choose a topic card to inspect its summary, takeaways, mindmap, and flowchart.
+                    </div>
+                    <div id="topic-detail-panel" class="hidden"></div>
+                </section>
+            </div>
+        </section>
+
+        <section id="study-plan-section" class="content-section hidden">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">Plan Output</p>
+                    <h2>Study Plan</h2>
+                </div>
+                <p id="study-plan-meta" class="section-note"></p>
+            </div>
+            <div id="study-plan-grid" class="study-plan-grid"></div>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
