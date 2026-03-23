@@ -14,6 +14,7 @@ from env_loader import load_env_file
 # Make sure streaks is imported correctly after the refactor
 from streaks import generate_study_plan_and_quizzes
 from mindmaps import (
+    VISION_PAGE_LIMIT,
     clean_text,
     extract_text,
     extract_pdf_page_images,
@@ -25,6 +26,10 @@ from study_tools import (
     generate_exam_insights,
     generate_flashcards,
     generate_mock_paper,
+    grade_mock_paper_attempt,
+    summarize_study_source,
+    transcribe_answer_images,
+    transcribe_submission_files,
 )
 
 # Configure logging
@@ -50,6 +55,7 @@ app.config['MAX_CONTENT_LENGTH'] = 128 * 1024 * 1024  # 128MB max file size
 # Increase Flask's request timeout if the single streaks API call might exceed 30s
 # app.config['REQUEST_TIMEOUT'] = 150 # Example: 150 seconds
 app.secret_key = os.environ.get('SECRET_KEY', 'dev-secret-key')
+VISUAL_SESSION_FILES_KEY = 'latest_visual_pdfs'
 
 # Create uploads directory if it doesn't exist
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
@@ -63,8 +69,7 @@ def handle_exceptions(f):
             return f(*args, **kwargs)
         except Exception as e:
             logger.error(f"Error in {f.__name__}: {str(e)}", exc_info=True)
-            # Check if the request expects JSON
-            if request.accept_mimetypes.accept_json and not request.accept_mimetypes.accept_html:
+            if request.path.startswith('/api/'):
                 return jsonify({'error': 'An unexpected server error occurred', 'details': str(e)}), 500
             # Otherwise, assume HTML response is acceptable or default
             flash(f'An unexpected error occurred: {str(e)}')
@@ -120,10 +125,17 @@ def init_db():
                     filename TEXT,
                     file_path TEXT,
                     content_text TEXT,
+                    content_summary TEXT,
                     content_origin TEXT,
+                    summary_origin TEXT,
                     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
                 );
             ''')
+            existing_columns = {row[1] for row in c.execute("PRAGMA table_info(source_documents)").fetchall()}
+            if 'content_summary' not in existing_columns:
+                c.execute('ALTER TABLE source_documents ADD COLUMN content_summary TEXT')
+            if 'summary_origin' not in existing_columns:
+                c.execute('ALTER TABLE source_documents ADD COLUMN summary_origin TEXT')
             # Example: Add a default user if needed for testing
             c.execute('INSERT OR IGNORE INTO user_tokens (user_id, tokens) VALUES (?, ?)', (1, 0))
             conn.commit() # Commit changes
@@ -155,6 +167,65 @@ def allowed_library_file(filename):
            filename.rsplit('.', 1)[1].lower() in app.config['LIBRARY_ALLOWED_EXTENSIONS']
 
 
+def cleanup_file_paths(file_paths):
+    for file_path in file_paths or []:
+        if not file_path:
+            continue
+        try:
+            if os.path.exists(file_path):
+                os.remove(file_path)
+                logger.info("Removed temporary file %s", file_path)
+        except OSError as error:
+            logger.error("Error removing temporary file %s: %s", file_path, error)
+
+
+def build_visual_upload_payload(saved_uploads):
+    if not saved_uploads:
+        raise ValueError("No saved PDF uploads were available to process.")
+
+    combined_segments = []
+    combined_page_images = []
+    total_uploads = len(saved_uploads)
+    pages_per_file = max(1, min(3, VISION_PAGE_LIMIT // max(total_uploads, 1)))
+
+    for index, upload in enumerate(saved_uploads, start=1):
+        pdf_path = upload['path']
+        original_filename = upload['original_filename']
+        text_for_mindmaps = extract_text(pdf_path)
+        cleaned_text_for_mindmaps = clean_text(text_for_mindmaps)
+        logger.info(
+            "Extracted text for mindmap generation from %s (length: %s)",
+            upload['stored_filename'],
+            len(cleaned_text_for_mindmaps),
+        )
+
+        if cleaned_text_for_mindmaps.strip():
+            title_hint = os.path.splitext(original_filename)[0]
+            combined_segments.append(
+                clean_text(
+                    f"[PDF {index} of {total_uploads}: {title_hint}]\n{cleaned_text_for_mindmaps}"
+                )
+            )
+            continue
+
+        logger.warning(
+            "No usable PDF text found in %s. Falling back to Gemini vision on rendered pages.",
+            upload['stored_filename'],
+        )
+        page_images = extract_pdf_page_images(pdf_path, max_pages=pages_per_file)
+        if page_images:
+            combined_page_images.extend(page_images[:pages_per_file])
+
+    combined_text = clean_text("\n\n".join(segment for segment in combined_segments if segment))
+    if combined_text.strip():
+        return {"text": combined_text, "page_images": [], "mode": "text"}
+    if combined_page_images:
+        return {"text": "", "page_images": combined_page_images[:VISION_PAGE_LIMIT], "mode": "vision"}
+    raise ValueError(
+        "None of the uploaded PDFs contained extractable text, and page rendering for vision fallback also failed."
+    )
+
+
 def get_current_user_id():
     return session.get('user_id', 1)
 
@@ -169,8 +240,10 @@ def serialize_source_document(row):
         'institution': row['institution'],
         'filename': row['filename'],
         'content_origin': row['content_origin'],
+        'summary_origin': row['summary_origin'],
         'created_at': row['created_at'],
-        'preview': (row['content_text'] or '')[:220]
+        'preview': (row['content_summary'] or row['content_text'] or '')[:220],
+        'has_summary': bool(row['content_summary']),
     }
 
 
@@ -206,6 +279,43 @@ def get_json_payload():
         return {}
     return payload
 
+
+def ensure_document_summaries(documents):
+    pending = [doc for doc in documents if doc.get('content_text') and not (doc.get('content_summary') or '').strip()]
+    if not pending:
+        return documents
+
+    conn = get_db_connection()
+    if not conn:
+        return documents
+
+    try:
+        cursor = conn.cursor()
+        for doc in pending:
+            summary_text, summary_origin = summarize_study_source(
+                doc.get('content_text', ''),
+                title=doc.get('title', ''),
+                source_type=doc.get('source_type', 'other'),
+                subject=doc.get('subject', ''),
+                topic=doc.get('topic', ''),
+                institution=doc.get('institution', ''),
+            )
+            doc['content_summary'] = summary_text
+            doc['summary_origin'] = summary_origin
+            cursor.execute(
+                '''
+                UPDATE source_documents
+                SET content_summary = ?, summary_origin = ?
+                WHERE id = ? AND user_id = ?
+                ''',
+                (summary_text, summary_origin, doc['id'], get_current_user_id())
+            )
+        conn.commit()
+    finally:
+        conn.close()
+
+    return documents
+
 # --- Routes ---
 
 # Example placeholder route for redirection
@@ -226,7 +336,8 @@ def list_source_documents():
             'SELECT * FROM source_documents WHERE user_id = ? ORDER BY created_at DESC, id DESC',
             (get_current_user_id(),)
         ).fetchall()
-        return jsonify({'documents': [serialize_source_document(row) for row in rows]})
+        documents = ensure_document_summaries([dict(row) for row in rows])
+        return jsonify({'documents': [serialize_source_document(doc) for doc in documents]})
     finally:
         conn.close()
 
@@ -256,11 +367,19 @@ def upload_source_documents():
         if pasted_text:
             note_title = title or f"{source_type.replace('_', ' ').title()} Notes"
             cleaned_paste = clean_text(pasted_text)
+            content_summary, summary_origin = summarize_study_source(
+                cleaned_paste,
+                title=note_title,
+                source_type=source_type,
+                subject=subject,
+                topic=topic,
+                institution=institution,
+            )
             cursor.execute(
                 '''
                 INSERT INTO source_documents
-                (user_id, title, source_type, subject, topic, institution, filename, file_path, content_text, content_origin)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                (user_id, title, source_type, subject, topic, institution, filename, file_path, content_text, content_summary, content_origin, summary_origin)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 ''',
                 (
                     get_current_user_id(),
@@ -272,7 +391,9 @@ def upload_source_documents():
                     None,
                     None,
                     cleaned_paste,
+                    content_summary,
                     'typed_text',
+                    summary_origin,
                 )
             )
             row = conn.execute(
@@ -301,11 +422,19 @@ def upload_source_documents():
                 content_origin = 'text'
 
             doc_title = title or os.path.splitext(filename)[0]
+            content_summary, summary_origin = summarize_study_source(
+                content_text,
+                title=doc_title,
+                source_type=source_type,
+                subject=subject,
+                topic=topic,
+                institution=institution,
+            )
             cursor.execute(
                 '''
                 INSERT INTO source_documents
-                (user_id, title, source_type, subject, topic, institution, filename, file_path, content_text, content_origin)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                (user_id, title, source_type, subject, topic, institution, filename, file_path, content_text, content_summary, content_origin, summary_origin)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 ''',
                 (
                     get_current_user_id(),
@@ -317,7 +446,9 @@ def upload_source_documents():
                     filename,
                     save_path,
                     content_text,
+                    content_summary,
                     content_origin,
+                    summary_origin,
                 )
             )
             row = conn.execute(
@@ -341,7 +472,7 @@ def get_generation_document_scope(payload):
     documents = fetch_source_documents(document_ids=document_ids, source_types=source_types)
     if not documents:
         raise ValueError("No study sources found for the requested scope.")
-    return documents
+    return ensure_document_summaries(documents)
 
 
 @app.route('/api/library/flashcards', methods=['POST'])
@@ -388,56 +519,110 @@ def create_mock_paper_api():
     return jsonify(result)
 
 
+@app.route('/api/library/mock-paper/grade', methods=['POST'])
+@handle_exceptions
+def grade_mock_paper_api():
+    paper_raw = request.form.get('paper', '').strip()
+    answers_raw = request.form.get('answers', '').strip()
+    subject = request.form.get('subject', '').strip()
+    topic = request.form.get('topic', '').strip()
+    institution = request.form.get('institution', '').strip()
+
+    if not paper_raw or not answers_raw:
+        return jsonify({'error': 'Paper and answers are required for grading.'}), 400
+
+    try:
+        paper = json.loads(paper_raw)
+        answers_list = json.loads(answers_raw)
+    except json.JSONDecodeError:
+        return jsonify({'error': 'Could not parse the submitted paper or answers.'}), 400
+
+    prepared_answers = {}
+    for item in answers_list if isinstance(answers_list, list) else []:
+        if not isinstance(item, dict):
+            continue
+        section_index = int(item.get('section_index', 0))
+        question_index = int(item.get('question_index', 0))
+        answer_key = f"{section_index}:{question_index}"
+        question_text = item.get('question', '')
+        answer_text = clean_text(item.get('answer_text', '') or '')
+        image_files = request.files.getlist(f'answer_images_{section_index}_{question_index}')
+        image_text = transcribe_answer_images(image_files, question_text=question_text) if image_files else ''
+        prepared_answers[answer_key] = {
+            'answer_text': answer_text,
+            'image_text': image_text,
+        }
+
+    whole_submission_files = request.files.getlist('whole_submission_files')
+    whole_submission_text = clean_text(request.form.get('whole_submission_text', '') or '')
+    submission_file_text, submission_filenames = transcribe_submission_files(
+        whole_submission_files,
+        upload_dir=app.config['UPLOAD_FOLDER'],
+    )
+    combined_submission_text = clean_text(
+        "\n\n".join(part for part in [whole_submission_text, submission_file_text] if part)
+    )
+
+    result = grade_mock_paper_attempt(
+        paper,
+        prepared_answers,
+        subject=subject,
+        topic=topic,
+        institution=institution,
+        whole_submission_text=combined_submission_text,
+    )
+    if submission_filenames:
+        result['submission_files'] = submission_filenames
+    return jsonify(result)
+
+
 # --- Mindmap Routes ---
 @app.route('/api/mindmap/upload', methods=['POST'])
 @handle_exceptions
 def mindmap_upload():
-    if 'file' not in request.files:
+    uploads = [upload for upload in request.files.getlist('file') if upload and upload.filename]
+    if not uploads:
         logger.warning("Mindmap upload attempt with no file part.")
         return jsonify({'error': 'No file part in the request'}), 400
 
-    file = request.files['file']
-    if file.filename == '':
-        logger.warning("Mindmap upload attempt with no selected file.")
-        return jsonify({'error': 'No selected file'}), 400
+    invalid_uploads = [upload.filename for upload in uploads if not allowed_file(upload.filename)]
+    if invalid_uploads:
+        logger.warning("Mindmap upload attempt with invalid file types: %s", invalid_uploads)
+        return jsonify({'error': f'Invalid file type. Please upload PDF files only. Rejected: {", ".join(invalid_uploads)}'}), 400
 
-    if file and allowed_file(file.filename):
+    if uploads:
         start_time = time.time()
-        # Sanitize filename
-        filename = secure_filename(file.filename)
-        # Ensure unique filenames, using timestamp prefix
-        unique_filename = f"{int(time.time())}_{filename}"
-        pdf_path = os.path.join(app.config['UPLOAD_FOLDER'], unique_filename)
+        saved_uploads = []
+        saved_paths = []
 
         try:
-            file.save(pdf_path)
-            logger.info(f"File saved to {pdf_path}")
-
-            # Process PDF to generate mindmaps
-            # We extract text here to generate mindmaps, but will extract again for quizzes
-            text_for_mindmaps = extract_text(pdf_path) # From mindmaps.py
-            cleaned_text_for_mindmaps = clean_text(text_for_mindmaps) # From mindmaps.py
-            logger.info(f"Extracted text for mindmap generation from {unique_filename} (length: {len(cleaned_text_for_mindmaps)})")
-
-            if cleaned_text_for_mindmaps.strip():
-                ai_output = generate_visual_learning_assets(text=cleaned_text_for_mindmaps)
-            else:
-                logger.warning(
-                    f"No usable PDF text found in {unique_filename}. Falling back to Gemini vision on rendered pages."
+            timestamp_ms = int(time.time() * 1000)
+            for index, upload in enumerate(uploads, start=1):
+                filename = secure_filename(upload.filename)
+                unique_filename = f"{timestamp_ms}_{index}_{filename}"
+                pdf_path = os.path.join(app.config['UPLOAD_FOLDER'], unique_filename)
+                upload.save(pdf_path)
+                logger.info("File saved to %s", pdf_path)
+                saved_paths.append(pdf_path)
+                saved_uploads.append(
+                    {
+                        'original_filename': filename,
+                        'stored_filename': unique_filename,
+                        'path': pdf_path,
+                    }
                 )
-                page_images = extract_pdf_page_images(pdf_path)
-                if not page_images:
-                    raise ValueError(
-                        "This PDF does not contain extractable text, and page rendering for vision fallback also failed."
-                    )
-                ai_output = generate_visual_learning_assets(page_images=page_images)
+
+            visual_source = build_visual_upload_payload(saved_uploads)
+
+            if visual_source['text']:
+                ai_output = generate_visual_learning_assets(text=visual_source['text'])
+            else:
+                ai_output = generate_visual_learning_assets(page_images=visual_source['page_images'])
 
             if ai_output is None:
-                 logger.error("Visualization generation returned None.")
-                 if os.path.exists(pdf_path):
-                     os.remove(pdf_path)
-                     logger.info(f"Removed temporary file {pdf_path} after visualization generation failure.")
-                 return jsonify({'error': 'Failed to generate visualizations from AI. Check AI service logs or connection.'}), 500
+                logger.error("Visualization generation returned None.")
+                cleanup_file_paths(saved_paths)
+                return jsonify({'error': 'Failed to generate visualizations from AI. Check AI service logs or connection.'}), 500
 
             visualizations = process_visual_learning_assets(ai_output)
             mindmaps = [
@@ -449,39 +634,33 @@ def mindmap_upload():
                 for item in visualizations
             ]
             logger.info(
-                f"Processed {len(visualizations)} visualization topic groups for {unique_filename}"
+                "Processed %s visualization topic groups across %s PDF(s)",
+                len(visualizations),
+                len(saved_uploads),
             )
 
             end_time = time.time()
-            session['latest_visual_pdf'] = unique_filename
+            stored_filenames = [upload['stored_filename'] for upload in saved_uploads]
+            session[VISUAL_SESSION_FILES_KEY] = stored_filenames
+            session['latest_visual_pdf'] = stored_filenames[-1]
             session.modified = True
             return jsonify({
                 'visualizations': visualizations,
                 'mindmaps': mindmaps,
                 'flowcharts': flowcharts,
-                'processing_time': round(end_time - start_time, 2)
+                'processing_time': round(end_time - start_time, 2),
+                'source_count': len(saved_uploads),
+                'source_files': [upload['original_filename'] for upload in saved_uploads],
             })
 
         except ValueError as ve: # Catch specific errors like empty PDF
-             logger.error(f"Value error processing file {unique_filename}: {str(ve)}", exc_info=True)
-             # Delete the file on processing error
-             if os.path.exists(pdf_path):
-                 os.remove(pdf_path)
-                 logger.info(f"Removed temporary file {pdf_path} after value error.")
+             logger.error("Value error processing uploaded PDF bundle: %s", str(ve), exc_info=True)
+             cleanup_file_paths(saved_paths)
              return jsonify({'error': f'Error processing file: {str(ve)}'}), 400
         except Exception as e: # Catch other potential errors
-            logger.error(f"Unexpected error processing file {unique_filename}: {str(e)}", exc_info=True)
-            # Delete the file on unexpected error
-            if os.path.exists(pdf_path):
-                 os.remove(pdf_path)
-                 logger.info(f"Removed temporary file {pdf_path} after unexpected error.")
+            logger.error("Unexpected error processing uploaded PDF bundle: %s", str(e), exc_info=True)
+            cleanup_file_paths(saved_paths)
             return jsonify({'error': f'An unexpected error occurred while processing the file.'}), 500
-        # Removed the finally block that deletes the file
-
-
-    else:
-        logger.warning(f"Mindmap upload attempt with invalid file type: {file.filename}")
-        return jsonify({'error': 'Invalid file type. Please upload a PDF file.'}), 400
 
 
 # --- Streaks Routes ---
@@ -585,7 +764,7 @@ def api_initialize_study():
 
     logger.info(f"Validated mindmap list contains {len(mindmap_list)} valid items.")
 
-    # --- Find the Most Recent PDF in Uploads Folder ---
+    # --- Find the Session-Linked Visual PDFs in Uploads Folder ---
     upload_folder = app.config['UPLOAD_FOLDER']
     pdf_files = [f for f in os.listdir(upload_folder) if f.endswith('.pdf')]
 
@@ -593,32 +772,46 @@ def api_initialize_study():
         logger.error(f"No PDF files found in the uploads folder: {upload_folder}")
         return jsonify({'error': 'No PDF file found on the server to generate study plan text from. Please upload a PDF first.'}), 404
 
-    preferred_pdf = session.get('latest_visual_pdf')
-    if preferred_pdf and preferred_pdf in pdf_files:
-        latest_pdf_filename = preferred_pdf
-        logger.info(f"Using session-linked PDF '{latest_pdf_filename}' for study plan generation.")
+    preferred_pdfs = session.get(VISUAL_SESSION_FILES_KEY) or []
+    if not preferred_pdfs and session.get('latest_visual_pdf'):
+        preferred_pdfs = [session.get('latest_visual_pdf')]
+
+    selected_pdf_filenames = [filename for filename in preferred_pdfs if filename in pdf_files]
+
+    if selected_pdf_filenames:
+        logger.info("Using %s session-linked PDF(s) for study plan generation.", len(selected_pdf_filenames))
     else:
         pdf_files.sort(key=lambda x: os.path.getmtime(os.path.join(upload_folder, x)), reverse=True)
-        latest_pdf_filename = pdf_files[0]
-        logger.info(f"Using most recent PDF '{latest_pdf_filename}' for study plan generation.")
+        selected_pdf_filenames = [pdf_files[0]]
+        logger.info(f"Using most recent PDF '{selected_pdf_filenames[0]}' for study plan generation.")
 
-    pdf_path_to_extract = os.path.join(upload_folder, latest_pdf_filename)
-
-    # Store the filename to be saved in the DB later
-    filename_to_store = latest_pdf_filename # Use the name of the found file
+    pdf_paths_to_extract = [os.path.join(upload_folder, filename) for filename in selected_pdf_filenames]
+    filename_to_store = " | ".join(selected_pdf_filenames)
 
     # --- Extract Text from the Found PDF ---
     cleaned_text = None
     try:
-        text_from_pdf = extract_text(pdf_path_to_extract) # Extract text
-        cleaned_text = clean_text(text_from_pdf) # Clean text
-        logger.info(f"Extracted and cleaned text from '{latest_pdf_filename}' for study plan generation (length: {len(cleaned_text)})")
+        combined_parts = []
+        for index, pdf_path_to_extract in enumerate(pdf_paths_to_extract, start=1):
+            filename = selected_pdf_filenames[index - 1]
+            text_from_pdf = extract_text(pdf_path_to_extract)
+            extracted_text = clean_text(text_from_pdf)
+            logger.info(
+                "Extracted and cleaned text from '%s' for study plan generation (length: %s)",
+                filename,
+                len(extracted_text),
+            )
+            if extracted_text.strip():
+                combined_parts.append(f"[PDF {index}: {filename}]\n{extracted_text}")
+        cleaned_text = clean_text("\n\n".join(combined_parts))
+        if not cleaned_text.strip():
+            raise ValueError("Could not extract any usable text from the selected visual PDF set.")
     except Exception as e:
-        logger.error(f"Error extracting text from '{latest_pdf_filename}' for study plan: {e}", exc_info=True)
-        # If text extraction fails, delete the file and return error
-        if os.path.exists(pdf_path_to_extract):
-            os.remove(pdf_path_to_extract)
-            logger.info(f"Removed temporary file {pdf_path_to_extract} after text extraction error.")
+        logger.error("Error extracting text from selected PDFs for study plan: %s", e, exc_info=True)
+        cleanup_file_paths(pdf_paths_to_extract)
+        session.pop(VISUAL_SESSION_FILES_KEY, None)
+        session.pop('latest_visual_pdf', None)
+        session.modified = True
         return jsonify({'error': f'Error extracting text from PDF for study plan: {str(e)}'}), 500
 
 
@@ -631,26 +824,26 @@ def api_initialize_study():
 
     except ConnectionError as ce:
         logger.error(f"API connection error during study plan generation: {ce}")
-        # On API error, delete the file
-        if os.path.exists(pdf_path_to_extract):
-            os.remove(pdf_path_to_extract)
-            logger.info(f"Removed temporary file {pdf_path_to_extract} after API connection error.")
+        cleanup_file_paths(pdf_paths_to_extract)
+        session.pop(VISUAL_SESSION_FILES_KEY, None)
+        session.pop('latest_visual_pdf', None)
+        session.modified = True
         return jsonify({'error': 'Failed to connect to AI service for study plan generation.',
                         'details': str(ce)}), 503  # Service Unavailable
     except ValueError as ve:
         logger.error(f"Value error during study plan generation: {ve}")
-        # On Value error, delete the file
-        if os.path.exists(pdf_path_to_extract):
-            os.remove(pdf_path_to_extract)
-            logger.info(f"Removed temporary file {pdf_path_to_extract} after value error during generation.")
+        cleanup_file_paths(pdf_paths_to_extract)
+        session.pop(VISUAL_SESSION_FILES_KEY, None)
+        session.pop('latest_visual_pdf', None)
+        session.modified = True
         return jsonify({'error': 'Invalid data encountered during study plan generation.', 'details': str(ve)}), 400
     except Exception as e:
         # Catch-all for other errors during generation
         logger.error(f"Failed to generate study plan: {str(e)}")
-        # On other generation errors, delete the file
-        if os.path.exists(pdf_path_to_extract):
-            os.remove(pdf_path_to_extract)
-            logger.info(f"Removed temporary file {pdf_path_to_extract} after generation error.")
+        cleanup_file_paths(pdf_paths_to_extract)
+        session.pop(VISUAL_SESSION_FILES_KEY, None)
+        session.pop('latest_visual_pdf', None)
+        session.modified = True
         return jsonify({'error': 'Failed to generate study plan due to an internal error.', 'details': str(e)}), 500
 
     # --- Validate Study Plan Output ---
@@ -660,15 +853,9 @@ def api_initialize_study():
         # Check if it's a fallback structure from streaks.py
         if isinstance(study_data, dict) and study_data.get("study_plan") == []:
             logger.warning("Generation function returned an empty study plan (possibly fallback).")
-             # Even if fallback, delete the file
-            if os.path.exists(pdf_path_to_extract):
-                os.remove(pdf_path_to_extract)
-                logger.info(f"Removed temporary file {pdf_path_to_extract} after fallback study plan.")
+            cleanup_file_paths(pdf_paths_to_extract)
         else:
-            # If invalid structure, delete the file
-            if os.path.exists(pdf_path_to_extract):
-                os.remove(pdf_path_to_extract)
-                logger.info(f"Removed temporary file {pdf_path_to_extract} after invalid study plan structure.")
+            cleanup_file_paths(pdf_paths_to_extract)
             return jsonify({'error': 'Internal error: Invalid study plan format generated by AI service.'}), 500
 
     # --- Store and Respond ---
@@ -676,10 +863,10 @@ def api_initialize_study():
     try:
         conn = get_db_connection()
         if not conn:  # Handle connection failure
-             # Still attempt to delete the file even if DB connection fails
-             if os.path.exists(pdf_path_to_extract):
-                os.remove(pdf_path_to_extract)
-                logger.info(f"Removed temporary file {pdf_path_to_extract} after DB connection failure.")
+             cleanup_file_paths(pdf_paths_to_extract)
+             session.pop(VISUAL_SESSION_FILES_KEY, None)
+             session.pop('latest_visual_pdf', None)
+             session.modified = True
              return jsonify({'error': 'Database connection failed.'}), 500
 
         cursor = conn.cursor()
@@ -715,16 +902,10 @@ def api_initialize_study():
 
         logger.info(f"Returning generated study plan (ID: {study_plan_id}) to client.")
 
-        # **Delete the temporary PDF file after successful DB storage**
-        if os.path.exists(pdf_path_to_extract):
-            try:
-                os.remove(pdf_path_to_extract)
-                logger.info(f"Removed temporary file {pdf_path_to_extract}")
-                if session.get('latest_visual_pdf') == latest_pdf_filename:
-                    session.pop('latest_visual_pdf', None)
-                    session.modified = True
-            except OSError as e:
-                logger.error(f"Error removing temporary file {pdf_path_to_extract}: {e}")
+        cleanup_file_paths(pdf_paths_to_extract)
+        session.pop(VISUAL_SESSION_FILES_KEY, None)
+        session.pop('latest_visual_pdf', None)
+        session.modified = True
 
         return jsonify(study_data)
 
@@ -732,24 +913,18 @@ def api_initialize_study():
         logger.error(f"Database error during study plan storage: {str(db_error)}")
         if conn:
             conn.rollback()
-        # **Attempt to delete the file on DB error**
-        if os.path.exists(pdf_path_to_extract):
-            try:
-                os.remove(pdf_path_to_extract)
-                logger.info(f"Removed temporary file {pdf_path_to_extract} after DB error.")
-            except OSError as e_del:
-                logger.error(f"Error removing temporary file {pdf_path_to_extract} after DB error: {e_del}")
+        cleanup_file_paths(pdf_paths_to_extract)
+        session.pop(VISUAL_SESSION_FILES_KEY, None)
+        session.pop('latest_visual_pdf', None)
+        session.modified = True
 
         return jsonify({'error': 'Database error occurred while saving study plan.'}), 500
     except Exception as e:
          logger.error(f"Unexpected error during streaks initialization: {e}", exc_info=True)
-         # **Attempt to delete the file on other errors**
-         if os.path.exists(pdf_path_to_extract):
-            try:
-                os.remove(pdf_path_to_extract)
-                logger.info(f"Removed temporary file {pdf_path_to_extract} after unexpected error.")
-            except OSError as e_del:
-                logger.error(f"Error removing temporary file {pdf_path_to_extract} after unexpected error: {e_del}")
+         cleanup_file_paths(pdf_paths_to_extract)
+         session.pop(VISUAL_SESSION_FILES_KEY, None)
+         session.pop('latest_visual_pdf', None)
+         session.modified = True
 
          return jsonify({'error': f'An unexpected error occurred during initialization: {str(e)}'}), 500
 

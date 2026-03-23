@@ -37,6 +37,11 @@ const studyPlanMeta = document.getElementById("study-plan-meta");
 let latestVisualPayload = null;
 let activeTopicIndex = 0;
 let sourceLibrary = [];
+let latestMockPaper = null;
+let latestMockPaperGrading = null;
+let latestMockPaperAttempt = {};
+let wholePaperCaptureFiles = [];
+let wholePaperStream = null;
 
 if (window.mermaid) {
     window.mermaid.initialize({
@@ -72,6 +77,105 @@ function toTitleCase(value) {
     return String(value || "other")
         .replaceAll("_", " ")
         .replace(/\b\w/g, (char) => char.toUpperCase());
+}
+
+function getMockAttemptKey(sectionIndex, questionIndex) {
+    return `${sectionIndex}:${questionIndex}`;
+}
+
+function getMockGradeForQuestion(grading, sectionIndex, questionIndex) {
+    const section = (grading?.graded_sections || []).find((item) => Number(item.section_index) === Number(sectionIndex));
+    return (section?.questions || []).find((item) => Number(item.question_index) === Number(questionIndex)) || null;
+}
+
+function revokeWholePaperCaptureUrls() {
+    wholePaperCaptureFiles.forEach((file) => {
+        if (file?.previewUrl) {
+            URL.revokeObjectURL(file.previewUrl);
+        }
+    });
+}
+
+function resetWholePaperCaptureFiles() {
+    revokeWholePaperCaptureUrls();
+    wholePaperCaptureFiles = [];
+}
+
+function stopWholePaperCamera() {
+    if (wholePaperStream) {
+        wholePaperStream.getTracks().forEach((track) => track.stop());
+        wholePaperStream = null;
+    }
+    const video = document.getElementById("whole-paper-camera-video");
+    if (video) {
+        video.srcObject = null;
+    }
+}
+
+function renderWholeSubmissionPreview() {
+    const preview = document.getElementById("whole-paper-capture-preview");
+    if (!preview) {
+        return;
+    }
+    if (!wholePaperCaptureFiles.length) {
+        preview.innerHTML = `<p class="capture-empty">No camera captures yet.</p>`;
+        return;
+    }
+    preview.innerHTML = wholePaperCaptureFiles.map((file, index) => `
+        <figure class="capture-thumb">
+            <img src="${escapeHtml(file.previewUrl)}" alt="Captured page ${index + 1}">
+            <figcaption>Page ${index + 1}</figcaption>
+        </figure>
+    `).join("");
+}
+
+async function startWholePaperCamera() {
+    const video = document.getElementById("whole-paper-camera-video");
+    const panel = document.getElementById("whole-paper-camera-panel");
+    if (!navigator.mediaDevices?.getUserMedia || !video || !panel) {
+        setStatus("Live camera capture is not available in this browser.", "error");
+        return;
+    }
+
+    try {
+        stopWholePaperCamera();
+        wholePaperStream = await navigator.mediaDevices.getUserMedia({
+            video: { facingMode: "environment" },
+            audio: false
+        });
+        video.srcObject = wholePaperStream;
+        await video.play();
+        panel.classList.remove("hidden");
+        setStatus("Camera started. Capture each page when it is clearly in frame.", "success");
+    } catch (error) {
+        setStatus(`Could not start the camera: ${error.message}`, "error");
+    }
+}
+
+async function captureWholePaperFrame() {
+    const video = document.getElementById("whole-paper-camera-video");
+    if (!video || !wholePaperStream) {
+        setStatus("Start the camera first before capturing a page.", "error");
+        return;
+    }
+
+    const canvas = document.createElement("canvas");
+    canvas.width = video.videoWidth || 1280;
+    canvas.height = video.videoHeight || 720;
+    const context = canvas.getContext("2d");
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+    const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/png"));
+    if (!blob) {
+        setStatus("Could not capture the camera frame.", "error");
+        return;
+    }
+
+    const file = new File([blob], `captured-page-${Date.now()}.png`, { type: "image/png" });
+    file.previewUrl = URL.createObjectURL(blob);
+    wholePaperCaptureFiles.push(file);
+    renderWholeSubmissionPreview();
+    setStatus(`Captured page ${wholePaperCaptureFiles.length}.`, "success");
 }
 
 function getGenerationPayload() {
@@ -255,40 +359,202 @@ function renderExamInsights(data) {
     examInsightsSection.classList.remove("hidden");
 }
 
-function renderMockPaper(paper) {
+function renderMockPaper(paper, grading = null, attempt = {}) {
+    const sections = paper.sections || [];
+    const paperTotalMarks = Number(
+        paper.total_marks
+        || sections.reduce((sum, section) => sum + (section.questions || []).reduce((sectionSum, question) => sectionSum + Number(question.marks || 0), 0), 0)
+    );
+    const paperTargetMarks = Number(paper.target_total_marks || paperTotalMarks || 0);
+    const scorePercent = grading?.total_marks_possible
+        ? Math.round((Number(grading.total_marks_awarded || 0) / Number(grading.total_marks_possible || 1)) * 100)
+        : null;
     mockPaperTitle.textContent = paper.paper_title || "Mock Paper";
     mockPaperOutput.innerHTML = `
         <section class="mock-paper-card">
             <h3>${escapeHtml(paper.paper_title || "Mock Paper")}</h3>
+            <p class="mock-paper-summary">Total marks: ${escapeHtml(paperTotalMarks)}${paperTargetMarks && paperTargetMarks !== paperTotalMarks ? ` (target ${escapeHtml(paperTargetMarks)})` : ""}</p>
             <div class="mock-paper-instructions">
                 <h4>Instructions</h4>
                 <ul>${(paper.instructions || []).map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
             </div>
+            ${grading ? `
+                <section class="mock-grading-summary">
+                    <div>
+                        <h4>${escapeHtml(grading.evaluation_title || "Evaluation Summary")}</h4>
+                        <p>${escapeHtml(grading.overall_summary || "Your paper has been graded.")}</p>
+                    </div>
+                    <div class="mock-score-pill">${escapeHtml(grading.total_marks_awarded)} / ${escapeHtml(grading.total_marks_possible)} marks${scorePercent !== null ? ` · ${escapeHtml(scorePercent)}%` : ""}</div>
+                </section>
+            ` : ""}
             <div class="mock-paper-sections">
-                ${(paper.sections || []).map((section, index) => `
+                ${sections.map((section, index) => {
+                    const sectionTotalMarks = (section.questions || []).reduce((sum, question) => sum + Number(question.marks || 0), 0);
+                    return `
                     <article class="mock-section">
                         <header>
                             <strong>Section ${index + 1}: ${escapeHtml(section.title)}</strong>
-                            <span>${escapeHtml(section.suggested_time_minutes)} min suggested</span>
+                            <span>${escapeHtml(sectionTotalMarks)} marks · ${escapeHtml(section.suggested_time_minutes)} min suggested</span>
                         </header>
                         <ol>
-                            ${(section.questions || []).map((question) => `
+                            ${(section.questions || []).map((question, questionIndex) => {
+                                const attemptKey = getMockAttemptKey(index, questionIndex);
+                                const attemptValue = attempt[attemptKey] || {};
+                                const grade = getMockGradeForQuestion(grading, index, questionIndex);
+                                return `
                                 <li>
-                                    <p>${escapeHtml(question.question)}</p>
-                                    <p class="question-meta">${escapeHtml(question.marks)} marks</p>
-                                    <details>
-                                        <summary>Answer outline</summary>
-                                        <p>${escapeHtml(question.answer_outline)}</p>
-                                    </details>
+                                    <p>${escapeHtml(question.question || question.prompt || question.text || question.body || "Question text unavailable")}</p>
+                                    <p class="question-meta">${escapeHtml(question.marks ?? question.marks_allocated ?? 0)} marks · ${escapeHtml(toTitleCase(question.question_type || "question"))}</p>
+                                    ${question.question_type === "mcq" && (question.options || []).length ? `
+                                        <ul class="mcq-options">
+                                            ${(question.options || []).map((option, optionIndex) => `<li>${escapeHtml(String.fromCharCode(65 + optionIndex))}. ${escapeHtml(option)}</li>`).join("")}
+                                        </ul>
+                                    ` : ""}
+                                    <div class="answer-entry">
+                                        <label>
+                                            <span>Your typed answer</span>
+                                            <textarea id="answer-text-${index}-${questionIndex}" rows="5" placeholder="Write your answer here...">${escapeHtml(attemptValue.answer_text || "")}</textarea>
+                                        </label>
+                                        <label>
+                                            <span>Or upload answer-sheet images</span>
+                                            <input id="answer-images-${index}-${questionIndex}" type="file" accept="image/*" multiple>
+                                        </label>
+                                    </div>
+                                    ${grade ? `
+                                        <div class="grade-card">
+                                            <div class="grade-card-header">
+                                                <strong>${escapeHtml(grade.marks_awarded)} / ${escapeHtml(grade.max_marks)} marks</strong>
+                                                <span>${escapeHtml(grade.verdict || "Reviewed")}</span>
+                                            </div>
+                                            <p>${escapeHtml(grade.feedback || "No feedback returned.")}</p>
+                                            ${(grade.strengths || []).length ? `<p><strong>Strengths:</strong> ${escapeHtml(grade.strengths.join(" | "))}</p>` : ""}
+                                            ${(grade.improvements || []).length ? `<p><strong>Improve:</strong> ${escapeHtml(grade.improvements.join(" | "))}</p>` : ""}
+                                            ${grade.transcribed_answer ? `<details><summary>Transcribed answer</summary><p>${escapeHtml(grade.transcribed_answer)}</p></details>` : ""}
+                                        </div>
+                                    ` : ""}
                                 </li>
-                            `).join("")}
+                            `;
+                            }).join("")}
                         </ol>
                     </article>
-                `).join("")}
+                `;
+                }).join("")}
+            </div>
+            <section class="whole-submission-panel">
+                <h4>Submit The Full Paper At The End</h4>
+                <p class="section-note">You can upload the whole answer script as a PDF, multiple images, or capture pages live from your camera. The grader will use this along with any question-wise answers you entered.</p>
+                <div class="answer-entry">
+                    <label>
+                        <span>Whole paper text note</span>
+                        <textarea id="whole-paper-text" rows="4" placeholder="Optional: add any final note about page order or question numbering...">${escapeHtml(attempt.whole_submission_text || "")}</textarea>
+                    </label>
+                    <label>
+                        <span>Upload full answer script</span>
+                        <input id="whole-paper-files" type="file" accept=".pdf,image/*" multiple>
+                    </label>
+                </div>
+                <div class="button-row camera-actions">
+                    <button type="button" id="start-whole-paper-camera">Open Camera</button>
+                    <button type="button" id="capture-whole-paper-frame">Capture Page</button>
+                    <button type="button" id="stop-whole-paper-camera">Stop Camera</button>
+                    <button type="button" id="clear-whole-paper-captures">Clear Captures</button>
+                </div>
+                <div id="whole-paper-camera-panel" class="camera-panel hidden">
+                    <video id="whole-paper-camera-video" autoplay playsinline muted></video>
+                </div>
+                <div id="whole-paper-capture-preview" class="capture-preview"></div>
+            </section>
+            <div class="button-row mock-paper-actions">
+                <button type="button" id="grade-mock-paper-button">Grade My Attempt</button>
             </div>
         </section>
     `;
     mockPaperSection.classList.remove("hidden");
+
+    const gradeButton = document.getElementById("grade-mock-paper-button");
+    if (gradeButton) {
+        gradeButton.addEventListener("click", submitMockPaperForGrading);
+    }
+
+    document.getElementById("start-whole-paper-camera")?.addEventListener("click", startWholePaperCamera);
+    document.getElementById("capture-whole-paper-frame")?.addEventListener("click", captureWholePaperFrame);
+    document.getElementById("stop-whole-paper-camera")?.addEventListener("click", () => {
+        stopWholePaperCamera();
+        setStatus("Camera stopped.", "idle");
+    });
+    document.getElementById("clear-whole-paper-captures")?.addEventListener("click", () => {
+        resetWholePaperCaptureFiles();
+        renderWholeSubmissionPreview();
+        setStatus("Camera captures cleared.", "idle");
+    });
+    renderWholeSubmissionPreview();
+}
+
+async function submitMockPaperForGrading() {
+    if (!latestMockPaper?.sections?.length) {
+        setStatus("Generate a mock paper before grading an attempt.", "error");
+        return;
+    }
+
+    const formData = new FormData();
+    const answers = [];
+    const wholePaperInput = document.getElementById("whole-paper-files");
+    const wholePaperText = document.getElementById("whole-paper-text")?.value?.trim() || "";
+
+    (latestMockPaper.sections || []).forEach((section, sectionIndex) => {
+        (section.questions || []).forEach((question, questionIndex) => {
+            const answerText = document.getElementById(`answer-text-${sectionIndex}-${questionIndex}`)?.value?.trim() || "";
+            const imageInput = document.getElementById(`answer-images-${sectionIndex}-${questionIndex}`);
+            const answerKey = getMockAttemptKey(sectionIndex, questionIndex);
+            latestMockPaperAttempt[answerKey] = { answer_text: answerText };
+
+            answers.push({
+                section_index: sectionIndex,
+                question_index: questionIndex,
+                question: question.question || question.prompt || question.text || question.body || "",
+                answer_text: answerText,
+            });
+
+            Array.from(imageInput?.files || []).forEach((file) => {
+                formData.append(`answer_images_${sectionIndex}_${questionIndex}`, file);
+            });
+        });
+    });
+
+    latestMockPaperAttempt.whole_submission_text = wholePaperText;
+
+    Array.from(wholePaperInput?.files || []).forEach((file) => {
+        formData.append("whole_submission_files", file);
+    });
+    wholePaperCaptureFiles.forEach((file) => {
+        formData.append("whole_submission_files", file);
+    });
+
+    formData.append("paper", JSON.stringify(latestMockPaper));
+    formData.append("answers", JSON.stringify(answers));
+    formData.append("subject", document.getElementById("action-subject").value.trim());
+    formData.append("topic", document.getElementById("action-topic").value.trim());
+    formData.append("institution", document.getElementById("action-institution").value.trim());
+    formData.append("whole_submission_text", wholePaperText);
+
+    setStatus("Grading your mock-paper attempt...", "loading");
+
+    try {
+        const response = await fetch("/api/library/mock-paper/grade", {
+            method: "POST",
+            body: formData
+        });
+        const data = await readResponsePayload(response);
+        if (!response.ok) {
+            throw new Error(data.error || "Mock paper grading failed.");
+        }
+
+        latestMockPaperGrading = data;
+        renderMockPaper(latestMockPaper, latestMockPaperGrading, latestMockPaperAttempt);
+        setStatus("Your mock paper was graded successfully.", "success");
+    } catch (error) {
+        setStatus(error.message || "Mock paper grading failed.", "error");
+    }
 }
 
 function renderTopicList(visualizations) {
@@ -470,15 +736,15 @@ uploadForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
     const formData = new FormData(uploadForm);
-    const file = formData.get("file");
-    if (!(file instanceof File) || !file.name) {
-        setStatus("Choose a PDF before uploading.", "error");
+    const files = Array.from(document.getElementById("pdf-file").files || []).filter((file) => file instanceof File && file.name);
+    if (!files.length) {
+        setStatus("Choose at least one PDF before uploading.", "error");
         return;
     }
 
     uploadButton.disabled = true;
     studyPlanButton.disabled = true;
-    setStatus("Generating visualizations from your PDF...", "loading");
+    setStatus(`Generating visualizations from ${files.length} PDF${files.length === 1 ? "" : "s"}...`, "loading");
     runMetadata.textContent = "";
     visualSection.classList.add("hidden");
     studyPlanSection.classList.add("hidden");
@@ -497,7 +763,7 @@ uploadForm.addEventListener("submit", async (event) => {
         activeTopicIndex = 0;
         renderTopicBrowser(data.visualizations || []);
         visualSection.classList.remove("hidden");
-        runMetadata.textContent = `Generated ${data.visualizations?.length || 0} topic visualizations in ${data.processing_time || 0}s.`;
+        runMetadata.textContent = `Generated ${data.visualizations?.length || 0} topic visualizations from ${data.source_count || files.length} PDF${(data.source_count || files.length) === 1 ? "" : "s"} in ${data.processing_time || 0}s.`;
         setStatus("Visualizations are ready. Open a topic card to inspect the larger diagrams.", "success");
         studyPlanButton.disabled = !(data.mindmaps && data.mindmaps.length);
     } catch (error) {
@@ -651,6 +917,11 @@ mockPaperButton.addEventListener("click", async () => {
             throw new Error(data.error || "Mock paper generation failed.");
         }
 
+        latestMockPaper = data;
+        latestMockPaperGrading = null;
+        latestMockPaperAttempt = {};
+        stopWholePaperCamera();
+        resetWholePaperCaptureFiles();
         renderMockPaper(data);
         setStatus("Mock paper generated successfully.", "success");
     } catch (error) {

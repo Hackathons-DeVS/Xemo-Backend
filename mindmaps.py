@@ -7,7 +7,7 @@ from typing import List
 import fitz
 from pydantic import BaseModel, Field
 
-from gemini_config import create_gemini_client
+from gemini_config import call_gemini_with_rate_limit_retry, create_gemini_client
 from model_routing import get_model_for
 
 
@@ -304,7 +304,9 @@ def generate_visual_learning_assets(text=None, page_images=None):
         ]
 
         try:
-            response = client.beta.chat.completions.parse(
+            response = call_gemini_with_rate_limit_retry(
+                client.beta.chat.completions.parse,
+                operation_name="Visual learning assets structured",
                 model=get_model_for("visuals"),
                 messages=messages,
                 temperature=0.5,
@@ -318,7 +320,9 @@ def generate_visual_learning_assets(text=None, page_images=None):
         except Exception as parse_error:
             print(f"Structured output parse failed, falling back to plain completion: {parse_error}")
 
-        response = client.chat.completions.create(
+        response = call_gemini_with_rate_limit_retry(
+            client.chat.completions.create,
+            operation_name="Visual learning assets compact",
             model=get_model_for("visuals"),
             messages=messages,
             temperature=0.5,

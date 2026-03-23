@@ -4,7 +4,7 @@ import time
 import os
 import re # Import re for JSON extraction
 
-from gemini_config import create_gemini_client, get_gemini_api_key
+from gemini_config import call_gemini_with_rate_limit_retry, create_gemini_client, get_gemini_api_key
 from model_routing import get_model_for
 
 # --- Configuration ---
@@ -139,7 +139,9 @@ def generate_study_plan_and_quizzes(mindmap_data=None, pdf_text=None):
         print(f"Generating study plan with quizzes for {len(prompt_context)} topics...")
         start_time = time.time()
 
-        response = client.chat.completions.create(
+        response = call_gemini_with_rate_limit_retry(
+            client.chat.completions.create,
+            operation_name="Study plan generation",
             model=get_model_for("study_plan"),
             messages=[{
                 "role": "system",

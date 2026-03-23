@@ -1,6 +1,6 @@
+import logging
 import os
 import time
-import logging
 
 from openai import APIStatusError, OpenAI
 
@@ -10,33 +10,33 @@ from env_loader import load_env_file
 load_env_file()
 logger = logging.getLogger(__name__)
 
-GEMINI_BASE_URL = os.environ.get(
-    "GEMINI_BASE_URL",
-    "https://generativelanguage.googleapis.com/v1beta/openai/",
+OPENROUTER_BASE_URL = os.environ.get(
+    "OPENROUTER_BASE_URL",
+    "https://openrouter.ai/api/v1/",
 )
-GEMINI_MODEL = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash")
-GEMINI_RATE_LIMIT_COOLDOWN_SECONDS = int(os.environ.get("GEMINI_RATE_LIMIT_COOLDOWN_SECONDS", "150"))
-GEMINI_RATE_LIMIT_MAX_ATTEMPTS = int(os.environ.get("GEMINI_RATE_LIMIT_MAX_ATTEMPTS", "2"))
-GEMINI_LOG_USAGE = os.environ.get("GEMINI_LOG_USAGE", "").strip().lower() in {"1", "true", "yes", "on"}
+OPENROUTER_RATE_LIMIT_COOLDOWN_SECONDS = int(os.environ.get("OPENROUTER_RATE_LIMIT_COOLDOWN_SECONDS", "60"))
+OPENROUTER_RATE_LIMIT_MAX_ATTEMPTS = int(os.environ.get("OPENROUTER_RATE_LIMIT_MAX_ATTEMPTS", "2"))
+OPENROUTER_LOG_USAGE = os.environ.get("OPENROUTER_LOG_USAGE", "").strip().lower() in {"1", "true", "yes", "on"}
 
 
-def get_gemini_api_key():
-    return os.environ.get("GEMINI_API_KEY")
+def get_openrouter_api_key():
+    return os.environ.get("OPENROUTER_API_KEY")
 
 
-def create_gemini_client(timeout=None):
-    api_key = get_gemini_api_key()
+def create_openrouter_client(timeout=None):
+    api_key = get_openrouter_api_key()
     if not api_key:
         raise RuntimeError(
-            "Missing Gemini API key. Set GEMINI_API_KEY in your .env file."
+            "Missing OpenRouter API key. Set OPENROUTER_API_KEY in your .env file."
         )
 
     client_kwargs = {
         "api_key": api_key,
-        "base_url": GEMINI_BASE_URL,
+        "base_url": OPENROUTER_BASE_URL,
         "max_retries": 0,
         "default_headers": {
-            "x-goog-api-client": "xemo-ai-openai-compat/1.0",
+            "HTTP-Referer": os.environ.get("OPENROUTER_SITE_URL", "http://localhost:5000"),
+            "X-Title": os.environ.get("OPENROUTER_APP_NAME", "Xemo Visual Study Lab"),
         },
     }
     if timeout is not None:
@@ -45,13 +45,13 @@ def create_gemini_client(timeout=None):
     return OpenAI(**client_kwargs)
 
 
-def log_gemini_usage(response, operation_name, model_name=None):
-    if not GEMINI_LOG_USAGE:
+def log_openrouter_usage(response, operation_name, model_name=None):
+    if not OPENROUTER_LOG_USAGE:
         return
 
     usage = getattr(response, "usage", None)
     if usage is None:
-        logger.info("GEMINI_USAGE operation=%s model=%s usage=missing", operation_name, model_name or "unknown")
+        logger.info("OPENROUTER_USAGE operation=%s model=%s usage=missing", operation_name, model_name or "unknown")
         return
 
     prompt_tokens = getattr(usage, "prompt_tokens", None)
@@ -61,7 +61,7 @@ def log_gemini_usage(response, operation_name, model_name=None):
     completion_details = getattr(usage, "completion_tokens_details", None)
 
     logger.info(
-        "GEMINI_USAGE operation=%s model=%s prompt_tokens=%s completion_tokens=%s total_tokens=%s prompt_details=%s completion_details=%s",
+        "OPENROUTER_USAGE operation=%s model=%s prompt_tokens=%s completion_tokens=%s total_tokens=%s prompt_details=%s completion_details=%s",
         operation_name,
         model_name or "unknown",
         prompt_tokens,
@@ -72,15 +72,15 @@ def log_gemini_usage(response, operation_name, model_name=None):
     )
 
 
-def call_gemini_with_rate_limit_retry(operation, *args, operation_name="Gemini request", cooldown_seconds=None, max_attempts=None, **kwargs):
-    cooldown = GEMINI_RATE_LIMIT_COOLDOWN_SECONDS if cooldown_seconds is None else cooldown_seconds
-    attempts = GEMINI_RATE_LIMIT_MAX_ATTEMPTS if max_attempts is None else max_attempts
+def call_openrouter_with_rate_limit_retry(operation, *args, operation_name="OpenRouter request", cooldown_seconds=None, max_attempts=None, **kwargs):
+    cooldown = OPENROUTER_RATE_LIMIT_COOLDOWN_SECONDS if cooldown_seconds is None else cooldown_seconds
+    attempts = OPENROUTER_RATE_LIMIT_MAX_ATTEMPTS if max_attempts is None else max_attempts
     last_error = None
 
     for attempt in range(1, attempts + 1):
         try:
             response = operation(*args, **kwargs)
-            log_gemini_usage(response, operation_name, model_name=kwargs.get("model"))
+            log_openrouter_usage(response, operation_name, model_name=kwargs.get("model"))
             return response
         except APIStatusError as exc:
             last_error = exc

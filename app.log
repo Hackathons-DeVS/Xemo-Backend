@@ -1742,3 +1742,993 @@ Traceback (most recent call last):
 ValueError: Could not parse flashcards from the model response.
 2026-03-20 20:58:55,821 - werkzeug - INFO - 127.0.0.1 - - [20/Mar/2026 20:58:55] "[32mPOST /api/library/flashcards HTTP/1.1[0m" 302 -
 2026-03-20 20:58:55,831 - werkzeug - INFO - 127.0.0.1 - - [20/Mar/2026 20:58:55] "GET / HTTP/1.1" 200 -
+2026-03-21 20:22:49,441 - __main__ - INFO - Database initialized/checked successfully.
+2026-03-21 20:22:49,629 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.102:5000
+2026-03-21 20:22:49,630 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-03-21 20:22:49,633 - werkzeug - INFO -  * Restarting with stat
+2026-03-21 20:22:52,745 - __main__ - INFO - Database initialized/checked successfully.
+2026-03-21 20:22:52,800 - werkzeug - WARNING -  * Debugger is active!
+2026-03-21 20:22:52,903 - werkzeug - INFO -  * Debugger PIN: 199-107-668
+2026-03-21 20:28:40,460 - werkzeug - INFO - 127.0.0.1 - - [21/Mar/2026 20:28:40] "GET / HTTP/1.1" 200 -
+2026-03-21 20:28:40,699 - werkzeug - INFO - 127.0.0.1 - - [21/Mar/2026 20:28:40] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2026-03-21 20:28:40,699 - werkzeug - INFO - 127.0.0.1 - - [21/Mar/2026 20:28:40] "[36mGET /static/app.js HTTP/1.1[0m" 304 -
+2026-03-21 20:28:40,913 - werkzeug - INFO - 127.0.0.1 - - [21/Mar/2026 20:28:40] "GET /api/library/documents HTTP/1.1" 200 -
+2026-03-21 20:28:40,929 - werkzeug - INFO - 127.0.0.1 - - [21/Mar/2026 20:28:40] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-03-21 20:29:11,085 - __main__ - ERROR - Error in create_flashcards_api: Missing Gemini API key. Set GEMINI_API_KEY in your .env file.
+Traceback (most recent call last):
+  File "C:\Users\Shikhar Gupta\PycharmProjects\Xemo AI\backend\omex\app.py", line 63, in decorated_function
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shikhar Gupta\PycharmProjects\Xemo AI\backend\omex\app.py", line 352, in create_flashcards_api
+    result = generate_flashcards(
+             ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shikhar Gupta\PycharmProjects\Xemo AI\backend\omex\study_tools.py", line 183, in generate_flashcards
+    client = create_gemini_client(timeout=120)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shikhar Gupta\PycharmProjects\Xemo AI\backend\omex\gemini_config.py", line 24, in create_gemini_client
+    raise RuntimeError(
+RuntimeError: Missing Gemini API key. Set GEMINI_API_KEY in your .env file.
+2026-03-21 20:29:11,093 - werkzeug - INFO - 127.0.0.1 - - [21/Mar/2026 20:29:11] "[32mPOST /api/library/flashcards HTTP/1.1[0m" 302 -
+2026-03-21 20:29:11,102 - werkzeug - INFO - 127.0.0.1 - - [21/Mar/2026 20:29:11] "GET / HTTP/1.1" 200 -
+2026-03-21 20:29:41,669 - __main__ - ERROR - Error in create_flashcards_api: Missing Gemini API key. Set GEMINI_API_KEY in your .env file.
+Traceback (most recent call last):
+  File "C:\Users\Shikhar Gupta\PycharmProjects\Xemo AI\backend\omex\app.py", line 63, in decorated_function
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shikhar Gupta\PycharmProjects\Xemo AI\backend\omex\app.py", line 352, in create_flashcards_api
+    result = generate_flashcards(
+             ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shikhar Gupta\PycharmProjects\Xemo AI\backend\omex\study_tools.py", line 183, in generate_flashcards
+    client = create_gemini_client(timeout=120)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shikhar Gupta\PycharmProjects\Xemo AI\backend\omex\gemini_config.py", line 24, in create_gemini_client
+    raise RuntimeError(
+RuntimeError: Missing Gemini API key. Set GEMINI_API_KEY in your .env file.
+2026-03-21 20:29:41,671 - werkzeug - INFO - 127.0.0.1 - - [21/Mar/2026 20:29:41] "[32mPOST /api/library/flashcards HTTP/1.1[0m" 302 -
+2026-03-21 20:29:41,677 - werkzeug - INFO - 127.0.0.1 - - [21/Mar/2026 20:29:41] "GET / HTTP/1.1" 200 -
+2026-03-21 20:29:42,450 - __main__ - ERROR - Error in create_flashcards_api: Missing Gemini API key. Set GEMINI_API_KEY in your .env file.
+Traceback (most recent call last):
+  File "C:\Users\Shikhar Gupta\PycharmProjects\Xemo AI\backend\omex\app.py", line 63, in decorated_function
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shikhar Gupta\PycharmProjects\Xemo AI\backend\omex\app.py", line 352, in create_flashcards_api
+    result = generate_flashcards(
+             ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shikhar Gupta\PycharmProjects\Xemo AI\backend\omex\study_tools.py", line 183, in generate_flashcards
+    client = create_gemini_client(timeout=120)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shikhar Gupta\PycharmProjects\Xemo AI\backend\omex\gemini_config.py", line 24, in create_gemini_client
+    raise RuntimeError(
+RuntimeError: Missing Gemini API key. Set GEMINI_API_KEY in your .env file.
+2026-03-21 20:29:42,451 - werkzeug - INFO - 127.0.0.1 - - [21/Mar/2026 20:29:42] "[32mPOST /api/library/flashcards HTTP/1.1[0m" 302 -
+2026-03-21 20:29:42,460 - werkzeug - INFO - 127.0.0.1 - - [21/Mar/2026 20:29:42] "GET / HTTP/1.1" 200 -
+2026-03-21 20:29:52,279 - __main__ - INFO - Database initialized/checked successfully.
+2026-03-21 20:29:52,315 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.102:5000
+2026-03-21 20:29:52,315 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-03-21 20:29:52,315 - werkzeug - INFO -  * Restarting with stat
+2026-03-21 20:29:54,059 - __main__ - INFO - Database initialized/checked successfully.
+2026-03-21 20:29:54,076 - werkzeug - WARNING -  * Debugger is active!
+2026-03-21 20:29:54,082 - werkzeug - INFO -  * Debugger PIN: 199-107-668
+2026-03-21 20:30:05,764 - werkzeug - INFO - 127.0.0.1 - - [21/Mar/2026 20:30:05] "GET / HTTP/1.1" 200 -
+2026-03-21 20:30:05,954 - werkzeug - INFO - 127.0.0.1 - - [21/Mar/2026 20:30:05] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2026-03-21 20:30:05,962 - werkzeug - INFO - 127.0.0.1 - - [21/Mar/2026 20:30:05] "[36mGET /static/app.js HTTP/1.1[0m" 304 -
+2026-03-21 20:30:06,128 - werkzeug - INFO - 127.0.0.1 - - [21/Mar/2026 20:30:06] "GET /api/library/documents HTTP/1.1" 200 -
+2026-03-21 20:30:36,217 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 200 OK"
+2026-03-21 20:30:36,244 - werkzeug - INFO - 127.0.0.1 - - [21/Mar/2026 20:30:36] "POST /api/library/flashcards HTTP/1.1" 200 -
+2026-03-21 20:31:18,864 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 200 OK"
+2026-03-21 20:31:18,885 - werkzeug - INFO - 127.0.0.1 - - [21/Mar/2026 20:31:18] "POST /api/library/mock-paper HTTP/1.1" 200 -
+2026-03-22 13:12:12,273 - __main__ - INFO - Database initialized/checked successfully.
+2026-03-22 13:12:12,516 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.100:5000
+2026-03-22 13:12:12,516 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-03-22 13:12:12,520 - werkzeug - INFO -  * Restarting with stat
+2026-03-22 13:12:17,092 - __main__ - INFO - Database initialized/checked successfully.
+2026-03-22 13:12:17,134 - werkzeug - WARNING -  * Debugger is active!
+2026-03-22 13:12:17,144 - werkzeug - INFO -  * Debugger PIN: 199-107-668
+2026-03-22 13:18:53,623 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 13:18:53] "GET / HTTP/1.1" 200 -
+2026-03-22 13:18:53,834 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 13:18:53] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2026-03-22 13:18:53,837 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 13:18:53] "[36mGET /static/app.js HTTP/1.1[0m" 304 -
+2026-03-22 13:18:53,981 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 13:18:53] "GET /api/library/documents HTTP/1.1" 200 -
+2026-03-22 13:18:53,996 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 13:18:53] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-03-22 13:19:24,733 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 13:19:24,785 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 13:19:24] "POST /api/library/exam-insights HTTP/1.1" 200 -
+2026-03-22 13:29:08,556 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 13:29:08,572 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 13:29:08] "POST /api/library/upload HTTP/1.1" 200 -
+2026-03-22 13:29:08,581 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 13:29:08] "GET /api/library/documents HTTP/1.1" 200 -
+2026-03-22 13:29:44,740 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 13:30:08,910 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 13:30:08,921 - __main__ - ERROR - Error in create_exam_insights_api: Could not parse exam insights from the model response.
+Traceback (most recent call last):
+  File "C:\Users\Shikhar Gupta\PycharmProjects\Xemo AI\backend\omex\study_tools.py", line 253, in generate_exam_insights
+    response = client.beta.chat.completions.parse(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shikhar Gupta\PycharmProjects\Xemo AI\.venv\Lib\site-packages\openai\resources\beta\chat\completions.py", line 158, in parse
+    return self._post(
+           ^^^^^^^^^^^
+  File "C:\Users\Shikhar Gupta\PycharmProjects\Xemo AI\.venv\Lib\site-packages\openai\_base_client.py", line 1247, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shikhar Gupta\PycharmProjects\Xemo AI\.venv\Lib\site-packages\openai\_base_client.py", line 920, in request
+    return self._request(
+           ^^^^^^^^^^^^^^
+  File "C:\Users\Shikhar Gupta\PycharmProjects\Xemo AI\.venv\Lib\site-packages\openai\_base_client.py", line 1030, in _request
+    return self._process_response(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shikhar Gupta\PycharmProjects\Xemo AI\.venv\Lib\site-packages\openai\_base_client.py", line 1129, in _process_response
+    return api_response.parse()
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shikhar Gupta\PycharmProjects\Xemo AI\.venv\Lib\site-packages\openai\_response.py", line 325, in parse
+    parsed = self._options.post_parser(parsed)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shikhar Gupta\PycharmProjects\Xemo AI\.venv\Lib\site-packages\openai\resources\beta\chat\completions.py", line 152, in parser
+    return _parse_chat_completion(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shikhar Gupta\PycharmProjects\Xemo AI\.venv\Lib\site-packages\openai\lib\_parsing\_completions.py", line 72, in parse_chat_completion
+    raise LengthFinishReasonError(completion=chat_completion)
+openai.LengthFinishReasonError: Could not parse response content as the length limit was reached - CompletionUsage(completion_tokens=1051, prompt_tokens=23207, total_tokens=27693, completion_tokens_details=None, prompt_tokens_details=None)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Shikhar Gupta\PycharmProjects\Xemo AI\backend\omex\app.py", line 63, in decorated_function
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shikhar Gupta\PycharmProjects\Xemo AI\backend\omex\app.py", line 366, in create_exam_insights_api
+    result = generate_exam_insights(
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shikhar Gupta\PycharmProjects\Xemo AI\backend\omex\study_tools.py", line 277, in generate_exam_insights
+    raise ValueError("Could not parse exam insights from the model response.")
+ValueError: Could not parse exam insights from the model response.
+2026-03-22 13:30:08,934 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 13:30:08] "[32mPOST /api/library/exam-insights HTTP/1.1[0m" 302 -
+2026-03-22 13:30:08,941 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 13:30:08] "GET / HTTP/1.1" 200 -
+2026-03-22 13:32:06,934 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Shikhar Gupta\\PycharmProjects\\Xemo AI\\backend\\omex\\app.py', reloading
+2026-03-22 13:32:07,802 - werkzeug - INFO -  * Restarting with stat
+2026-03-22 13:32:10,332 - __main__ - INFO - Database initialized/checked successfully.
+2026-03-22 13:32:10,357 - werkzeug - WARNING -  * Debugger is active!
+2026-03-22 13:32:10,364 - werkzeug - INFO -  * Debugger PIN: 199-107-668
+2026-03-22 13:32:29,742 - app - INFO - Database initialized/checked successfully.
+2026-03-22 13:34:35,751 - app - INFO - Database initialized/checked successfully.
+2026-03-22 13:34:35,766 - app - ERROR - Error in create_exam_insights_api: boom
+Traceback (most recent call last):
+  File "C:\Users\Shikhar Gupta\PycharmProjects\Xemo AI\backend\omex\app.py", line 63, in decorated_function
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shikhar Gupta\PycharmProjects\Xemo AI\backend\omex\app.py", line 365, in create_exam_insights_api
+    result = generate_exam_insights(
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "<stdin>", line 4, in <lambda>
+  File "<stdin>", line 4, in <genexpr>
+ValueError: boom
+2026-03-22 13:37:58,461 - __main__ - INFO - Database initialized/checked successfully.
+2026-03-22 13:37:58,517 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.100:5000
+2026-03-22 13:37:58,517 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-03-22 13:37:58,520 - werkzeug - INFO -  * Restarting with stat
+2026-03-22 13:38:01,021 - __main__ - INFO - Database initialized/checked successfully.
+2026-03-22 13:38:01,047 - werkzeug - WARNING -  * Debugger is active!
+2026-03-22 13:38:01,052 - werkzeug - INFO -  * Debugger PIN: 199-107-668
+2026-03-22 13:38:07,497 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 13:38:07] "GET / HTTP/1.1" 200 -
+2026-03-22 13:38:07,757 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 13:38:07] "[36mGET /static/app.js HTTP/1.1[0m" 304 -
+2026-03-22 13:38:07,760 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 13:38:07] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2026-03-22 13:38:07,985 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 13:38:07] "GET /api/library/documents HTTP/1.1" 200 -
+2026-03-22 13:38:40,389 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 13:38:51,092 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 13:38:51,100 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 13:38:51] "POST /api/library/exam-insights HTTP/1.1" 200 -
+2026-03-22 13:42:34,922 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Shikhar Gupta\\PycharmProjects\\Xemo AI\\backend\\omex\\study_tools.py', reloading
+2026-03-22 13:42:35,359 - werkzeug - INFO -  * Restarting with stat
+2026-03-22 13:42:39,463 - __main__ - INFO - Database initialized/checked successfully.
+2026-03-22 13:42:39,508 - werkzeug - WARNING -  * Debugger is active!
+2026-03-22 13:42:39,517 - werkzeug - INFO -  * Debugger PIN: 199-107-668
+2026-03-22 13:45:13,147 - __main__ - INFO - Database initialized/checked successfully.
+2026-03-22 13:45:13,200 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.100:5000
+2026-03-22 13:45:13,201 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-03-22 13:45:13,203 - werkzeug - INFO -  * Restarting with stat
+2026-03-22 13:45:16,793 - __main__ - INFO - Database initialized/checked successfully.
+2026-03-22 13:45:16,847 - werkzeug - WARNING -  * Debugger is active!
+2026-03-22 13:45:16,859 - werkzeug - INFO -  * Debugger PIN: 199-107-668
+2026-03-22 13:45:17,306 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 13:45:17] "GET / HTTP/1.1" 200 -
+2026-03-22 13:45:17,506 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 13:45:17] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2026-03-22 13:45:17,519 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 13:45:17] "[36mGET /static/app.js HTTP/1.1[0m" 304 -
+2026-03-22 13:45:17,705 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 13:45:17] "GET /api/library/documents HTTP/1.1" 200 -
+2026-03-22 13:45:29,991 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-22 13:45:29,992 - openai._base_client - INFO - Retrying request to /chat/completions in 0.393867 seconds
+2026-03-22 13:45:30,650 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-22 13:45:30,651 - openai._base_client - INFO - Retrying request to /chat/completions in 0.940254 seconds
+2026-03-22 13:45:31,875 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-22 13:45:31,877 - study_tools - WARNING - Batch exam-insights analysis failed, falling back to single-pass mode: Error code: 429 - [{'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.5-pro\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.5-pro\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.5-pro\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.5-pro\nPlease retry in 25.662185973s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_input_token_count', 'quotaId': 'GenerateContentInputTokensPerModelPerMinute-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-pro'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerMinutePerProjectPerModel-FreeTier', 'quotaDimensions': {'model': 'gemini-2.5-pro', 'location': 'global'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-pro'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_input_token_count', 'quotaId': 'GenerateContentInputTokensPerModelPerDay-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-pro'}}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '25s'}]}}]
+2026-03-22 13:45:32,079 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-22 13:45:32,082 - openai._base_client - INFO - Retrying request to /chat/completions in 0.389548 seconds
+2026-03-22 13:45:32,607 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-22 13:45:32,608 - openai._base_client - INFO - Retrying request to /chat/completions in 0.878708 seconds
+2026-03-22 13:45:33,650 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-22 13:45:33,652 - study_tools - WARNING - Single-pass structured exam-insights generation failed. Retrying compact mode: Error code: 429 - [{'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.5-pro\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.5-pro\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.5-pro\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.5-pro\nPlease retry in 23.904041653s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-pro'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerMinutePerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-pro'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_input_token_count', 'quotaId': 'GenerateContentInputTokensPerModelPerMinute-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-pro'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_input_token_count', 'quotaId': 'GenerateContentInputTokensPerModelPerDay-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-pro'}}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '23s'}]}}]
+2026-03-22 13:45:33,935 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-22 13:45:33,938 - openai._base_client - INFO - Retrying request to /chat/completions in 0.483256 seconds
+2026-03-22 13:45:34,539 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-22 13:45:34,540 - openai._base_client - INFO - Retrying request to /chat/completions in 0.927544 seconds
+2026-03-22 13:45:35,593 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-22 13:45:35,595 - study_tools - WARNING - Single-pass compact exam-insights generation failed: Error code: 429 - [{'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.5-pro\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.5-pro\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.5-pro\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.5-pro\nPlease retry in 21.930740669s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_input_token_count', 'quotaId': 'GenerateContentInputTokensPerModelPerMinute-FreeTier', 'quotaDimensions': {'model': 'gemini-2.5-pro', 'location': 'global'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerMinutePerProjectPerModel-FreeTier', 'quotaDimensions': {'model': 'gemini-2.5-pro', 'location': 'global'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'model': 'gemini-2.5-pro', 'location': 'global'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_input_token_count', 'quotaId': 'GenerateContentInputTokensPerModelPerDay-FreeTier', 'quotaDimensions': {'model': 'gemini-2.5-pro', 'location': 'global'}}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '21s'}]}}]
+2026-03-22 13:45:35,596 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 13:45:35] "POST /api/library/exam-insights HTTP/1.1" 200 -
+2026-03-22 13:50:02,564 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Shikhar Gupta\\PycharmProjects\\Xemo AI\\backend\\omex\\study_tools.py', reloading
+2026-03-22 13:50:02,904 - werkzeug - INFO -  * Restarting with stat
+2026-03-22 13:50:08,117 - __main__ - INFO - Database initialized/checked successfully.
+2026-03-22 13:50:08,158 - werkzeug - WARNING -  * Debugger is active!
+2026-03-22 13:50:08,172 - werkzeug - INFO -  * Debugger PIN: 199-107-668
+2026-03-22 13:53:52,741 - __main__ - INFO - Database initialized/checked successfully.
+2026-03-22 13:53:52,772 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.100:5000
+2026-03-22 13:53:52,772 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-03-22 13:53:52,773 - werkzeug - INFO -  * Restarting with stat
+2026-03-22 13:53:55,113 - __main__ - INFO - Database initialized/checked successfully.
+2026-03-22 13:53:55,136 - werkzeug - WARNING -  * Debugger is active!
+2026-03-22 13:53:55,142 - werkzeug - INFO -  * Debugger PIN: 199-107-668
+2026-03-22 13:53:56,815 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 13:53:56] "GET / HTTP/1.1" 200 -
+2026-03-22 13:53:57,033 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 13:53:57] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2026-03-22 13:53:57,036 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 13:53:57] "[36mGET /static/app.js HTTP/1.1[0m" 304 -
+2026-03-22 13:53:57,153 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 13:53:57] "GET /api/library/documents HTTP/1.1" 200 -
+2026-03-22 13:54:01,079 - study_tools - INFO - Generating exam insights with model: gemini-2.5-flash
+2026-03-22 13:54:10,230 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 13:54:10,794 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 400 Bad Request"
+2026-03-22 13:54:10,795 - study_tools - WARNING - Single-pass structured exam-insights generation failed for model gemini-2.5-flash. Retrying compact mode: Error code: 400 - [{'error': {'code': 400, 'message': 'Request has empty input.', 'status': 'INVALID_ARGUMENT'}}]
+2026-03-22 13:54:11,370 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 400 Bad Request"
+2026-03-22 13:54:11,372 - study_tools - WARNING - Single-pass compact exam-insights generation failed for model gemini-2.5-flash: Error code: 400 - [{'error': {'code': 400, 'message': 'Request has empty input.', 'status': 'INVALID_ARGUMENT'}}]
+2026-03-22 13:54:11,373 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 13:54:11] "POST /api/library/exam-insights HTTP/1.1" 200 -
+2026-03-22 13:57:25,977 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Shikhar Gupta\\PycharmProjects\\Xemo AI\\backend\\omex\\study_tools.py', reloading
+2026-03-22 13:57:26,218 - werkzeug - INFO -  * Restarting with stat
+2026-03-22 13:57:28,771 - __main__ - INFO - Database initialized/checked successfully.
+2026-03-22 13:57:28,801 - werkzeug - WARNING -  * Debugger is active!
+2026-03-22 13:57:28,807 - werkzeug - INFO -  * Debugger PIN: 199-107-668
+2026-03-22 13:58:08,329 - study_tools - INFO - Generating exam insights with model: gemini-2.5-flash
+2026-03-22 13:58:19,207 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 13:58:32,965 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 13:58:32,969 - study_tools - WARNING - Single-pass structured exam-insights generation hit the length limit for model gemini-2.5-flash. Retrying compact mode.
+2026-03-22 13:58:45,991 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 13:58:45,995 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 13:58:45] "POST /api/library/exam-insights HTTP/1.1" 200 -
+2026-03-22 14:01:40,881 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Shikhar Gupta\\PycharmProjects\\Xemo AI\\backend\\omex\\study_tools.py', reloading
+2026-03-22 14:01:41,305 - werkzeug - INFO -  * Restarting with stat
+2026-03-22 14:01:46,206 - __main__ - INFO - Database initialized/checked successfully.
+2026-03-22 14:01:46,263 - werkzeug - WARNING -  * Debugger is active!
+2026-03-22 14:01:46,274 - werkzeug - INFO -  * Debugger PIN: 199-107-668
+2026-03-22 14:02:09,251 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Shikhar Gupta\\PycharmProjects\\Xemo AI\\backend\\omex\\study_tools.py', reloading
+2026-03-22 14:02:09,705 - werkzeug - INFO -  * Restarting with stat
+2026-03-22 14:02:14,369 - __main__ - INFO - Database initialized/checked successfully.
+2026-03-22 14:02:14,408 - werkzeug - WARNING -  * Debugger is active!
+2026-03-22 14:02:14,416 - werkzeug - INFO -  * Debugger PIN: 199-107-668
+2026-03-22 14:05:51,139 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 14:05:51] "GET / HTTP/1.1" 200 -
+2026-03-22 14:05:51,320 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 14:05:51] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2026-03-22 14:05:51,324 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 14:05:51] "[36mGET /static/app.js HTTP/1.1[0m" 304 -
+2026-03-22 14:05:51,392 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 14:05:51] "GET /api/library/documents HTTP/1.1" 200 -
+2026-03-22 14:05:54,212 - study_tools - INFO - Generating exam insights with model: gemini-2.5-flash
+2026-03-22 14:06:01,959 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 14:06:01,965 - study_tools - INFO - Repairing non-JSON batch exam analysis for source 'Class 11 2023 Chemistry Paper' with model gemini-2.5-flash.
+2026-03-22 14:06:04,159 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 14:06:12,860 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 14:06:12,864 - study_tools - INFO - Repairing non-JSON batch exam analysis for source 'Class 11 Chemistry Textbook' with model gemini-2.5-flash.
+2026-03-22 14:06:15,161 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 14:06:23,406 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 14:06:23,409 - study_tools - INFO - Repairing non-JSON batch exam analysis for source 'Class 11 Chemistry Textbook' with model gemini-2.5-flash.
+2026-03-22 14:06:28,459 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 14:06:37,074 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 14:06:37,078 - study_tools - INFO - Repairing non-JSON batch exam analysis for source 'Class 11 Chem Notes' with model gemini-2.5-flash.
+2026-03-22 14:06:40,970 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 14:06:44,315 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 14:06:44,678 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-22 14:06:44,679 - openai._base_client - INFO - Retrying request to /chat/completions in 0.471312 seconds
+2026-03-22 14:06:45,542 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-22 14:06:45,543 - openai._base_client - INFO - Retrying request to /chat/completions in 0.978098 seconds
+2026-03-22 14:06:46,924 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-22 14:06:46,925 - study_tools - WARNING - Model gemini-2.5-flash hit quota/rate limits during batch exam-insights analysis. Trying fallback model.
+2026-03-22 14:06:46,926 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 14:06:46] "POST /api/library/exam-insights HTTP/1.1" 200 -
+2026-03-22 14:07:37,518 - study_tools - INFO - Generating mock paper with model: gemini-2.5-flash
+2026-03-22 14:07:38,084 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-22 14:07:38,085 - openai._base_client - INFO - Retrying request to /chat/completions in 0.383861 seconds
+2026-03-22 14:07:39,041 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-22 14:07:39,041 - openai._base_client - INFO - Retrying request to /chat/completions in 0.818495 seconds
+2026-03-22 14:07:40,407 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-22 14:07:40,408 - study_tools - WARNING - Model gemini-2.5-flash hit quota/rate limits for mock paper generation. Trying fallback model.
+2026-03-22 14:07:40,408 - __main__ - ERROR - Error in create_mock_paper_api: Error code: 429 - [{'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\nPlease retry in 17.403134635s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'model': 'gemini-2.5-flash', 'location': 'global'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '17s'}]}}]
+Traceback (most recent call last):
+  File "C:\Users\Shikhar Gupta\PycharmProjects\Xemo AI\backend\omex\app.py", line 63, in decorated_function
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shikhar Gupta\PycharmProjects\Xemo AI\backend\omex\app.py", line 379, in create_mock_paper_api
+    result = generate_mock_paper(
+             ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shikhar Gupta\PycharmProjects\Xemo AI\backend\omex\study_tools.py", line 1023, in generate_mock_paper
+    raise last_error
+  File "C:\Users\Shikhar Gupta\PycharmProjects\Xemo AI\backend\omex\study_tools.py", line 978, in generate_mock_paper
+    response = client.beta.chat.completions.parse(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shikhar Gupta\PycharmProjects\Xemo AI\.venv\Lib\site-packages\openai\resources\beta\chat\completions.py", line 158, in parse
+    return self._post(
+           ^^^^^^^^^^^
+  File "C:\Users\Shikhar Gupta\PycharmProjects\Xemo AI\.venv\Lib\site-packages\openai\_base_client.py", line 1247, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shikhar Gupta\PycharmProjects\Xemo AI\.venv\Lib\site-packages\openai\_base_client.py", line 920, in request
+    return self._request(
+           ^^^^^^^^^^^^^^
+  File "C:\Users\Shikhar Gupta\PycharmProjects\Xemo AI\.venv\Lib\site-packages\openai\_base_client.py", line 1013, in _request
+    return self._retry_request(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shikhar Gupta\PycharmProjects\Xemo AI\.venv\Lib\site-packages\openai\_base_client.py", line 1062, in _retry_request
+    return self._request(
+           ^^^^^^^^^^^^^^
+  File "C:\Users\Shikhar Gupta\PycharmProjects\Xemo AI\.venv\Lib\site-packages\openai\_base_client.py", line 1013, in _request
+    return self._retry_request(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shikhar Gupta\PycharmProjects\Xemo AI\.venv\Lib\site-packages\openai\_base_client.py", line 1062, in _retry_request
+    return self._request(
+           ^^^^^^^^^^^^^^
+  File "C:\Users\Shikhar Gupta\PycharmProjects\Xemo AI\.venv\Lib\site-packages\openai\_base_client.py", line 1028, in _request
+    raise self._make_status_error_from_response(err.response) from None
+openai.RateLimitError: Error code: 429 - [{'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\nPlease retry in 17.403134635s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'model': 'gemini-2.5-flash', 'location': 'global'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '17s'}]}}]
+2026-03-22 14:07:40,415 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 14:07:40] "[35m[1mPOST /api/library/mock-paper HTTP/1.1[0m" 500 -
+2026-03-22 14:08:18,068 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Shikhar Gupta\\PycharmProjects\\Xemo AI\\backend\\omex\\study_tools.py', reloading
+2026-03-22 14:08:18,453 - werkzeug - INFO -  * Restarting with stat
+2026-03-22 14:08:22,680 - __main__ - INFO - Database initialized/checked successfully.
+2026-03-22 14:08:22,716 - werkzeug - WARNING -  * Debugger is active!
+2026-03-22 14:08:22,724 - werkzeug - INFO -  * Debugger PIN: 199-107-668
+2026-03-22 14:08:32,814 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Shikhar Gupta\\PycharmProjects\\Xemo AI\\backend\\omex\\study_tools.py', reloading
+2026-03-22 14:08:33,249 - werkzeug - INFO -  * Restarting with stat
+2026-03-22 14:08:36,061 - __main__ - INFO - Database initialized/checked successfully.
+2026-03-22 14:08:36,087 - werkzeug - WARNING -  * Debugger is active!
+2026-03-22 14:08:36,092 - werkzeug - INFO -  * Debugger PIN: 199-107-668
+2026-03-22 14:09:33,790 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 14:09:33] "GET / HTTP/1.1" 200 -
+2026-03-22 14:09:33,948 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 14:09:33] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2026-03-22 14:09:33,956 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 14:09:33] "[36mGET /static/app.js HTTP/1.1[0m" 304 -
+2026-03-22 14:09:34,030 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 14:09:34] "GET /api/library/documents HTTP/1.1" 200 -
+2026-03-22 14:09:36,299 - study_tools - INFO - Generating exam insights with model: gemini-2.5-flash
+2026-03-22 14:09:37,051 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-22 14:09:37,053 - openai._base_client - INFO - Retrying request to /chat/completions in 0.497774 seconds
+2026-03-22 14:09:37,924 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-22 14:09:37,925 - openai._base_client - INFO - Retrying request to /chat/completions in 0.981227 seconds
+2026-03-22 14:09:39,314 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-22 14:09:39,315 - study_tools - WARNING - Model gemini-2.5-flash hit quota/rate limits during batch exam-insights analysis. Trying fallback model.
+2026-03-22 14:09:39,316 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 14:09:39] "POST /api/library/exam-insights HTTP/1.1" 200 -
+2026-03-22 14:14:19,814 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Shikhar Gupta\\PycharmProjects\\Xemo AI\\backend\\omex\\gemini_config.py', reloading
+2026-03-22 14:14:20,293 - werkzeug - INFO -  * Restarting with stat
+2026-03-22 14:14:23,850 - __main__ - INFO - Database initialized/checked successfully.
+2026-03-22 14:14:23,878 - werkzeug - WARNING -  * Debugger is active!
+2026-03-22 14:14:23,883 - werkzeug - INFO -  * Debugger PIN: 199-107-668
+2026-03-22 14:14:40,259 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Shikhar Gupta\\PycharmProjects\\Xemo AI\\backend\\omex\\study_tools.py', reloading
+2026-03-22 14:14:40,836 - werkzeug - INFO -  * Restarting with stat
+2026-03-22 14:14:44,894 - __main__ - INFO - Database initialized/checked successfully.
+2026-03-22 14:14:44,944 - werkzeug - WARNING -  * Debugger is active!
+2026-03-22 14:14:44,953 - werkzeug - INFO -  * Debugger PIN: 199-107-668
+2026-03-22 14:15:16,311 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Shikhar Gupta\\PycharmProjects\\Xemo AI\\backend\\omex\\streaks.py', reloading
+2026-03-22 14:15:16,717 - werkzeug - INFO -  * Restarting with stat
+2026-03-22 14:15:19,799 - __main__ - INFO - Database initialized/checked successfully.
+2026-03-22 14:15:19,839 - werkzeug - WARNING -  * Debugger is active!
+2026-03-22 14:15:19,846 - werkzeug - INFO -  * Debugger PIN: 199-107-668
+2026-03-22 14:16:36,732 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 14:16:36] "GET / HTTP/1.1" 200 -
+2026-03-22 14:16:36,960 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 14:16:36] "[36mGET /static/app.js HTTP/1.1[0m" 304 -
+2026-03-22 14:16:36,972 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 14:16:36] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2026-03-22 14:16:37,100 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 14:16:37] "GET /api/library/documents HTTP/1.1" 200 -
+2026-03-22 14:16:42,162 - study_tools - INFO - Generating exam insights with model: gemini-2.5-flash
+2026-03-22 14:16:42,952 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-22 14:16:42,953 - gemini_config - WARNING - Exam insights batch analysis 1 hit rate limits (429). Cooling down for 150 seconds before retry 2/2.
+2026-03-22 14:19:13,708 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-22 14:19:13,709 - study_tools - WARNING - Model gemini-2.5-flash hit quota/rate limits during batch exam-insights analysis. Trying fallback model.
+2026-03-22 14:19:13,709 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 14:19:13] "POST /api/library/exam-insights HTTP/1.1" 200 -
+2026-03-22 14:24:53,848 - __main__ - INFO - Database initialized/checked successfully.
+2026-03-22 14:24:53,885 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.100:5000
+2026-03-22 14:24:53,885 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-03-22 14:24:53,886 - werkzeug - INFO -  * Restarting with stat
+2026-03-22 14:24:56,278 - __main__ - INFO - Database initialized/checked successfully.
+2026-03-22 14:24:56,310 - werkzeug - WARNING -  * Debugger is active!
+2026-03-22 14:24:56,317 - werkzeug - INFO -  * Debugger PIN: 199-107-668
+2026-03-22 14:24:56,581 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 14:24:56] "GET / HTTP/1.1" 200 -
+2026-03-22 14:24:56,797 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 14:24:56] "GET /static/app.js HTTP/1.1" 200 -
+2026-03-22 14:24:56,801 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 14:24:56] "GET /static/styles.css HTTP/1.1" 200 -
+2026-03-22 14:24:57,012 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 14:24:57] "GET /api/library/documents HTTP/1.1" 200 -
+2026-03-22 14:24:57,015 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 14:24:57] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-03-22 14:25:00,323 - study_tools - INFO - Generating exam insights with model: gemini-2.5-flash
+2026-03-22 14:25:09,109 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 14:25:09,113 - study_tools - INFO - RAW_EXAM_INSIGHTS_BATCH_1_CLASS_11_2023_CHEMISTRY_PAPER_START
+2026-03-22 14:25:09,113 - study_tools - INFO - {
+  "summary": "This Class 11 Chemistry paper for the Maha board is a 70-mark, 3-hour exam covering Physical, Inorganic, and Organic Chemistry across four sections: MCQs, VSA, SA (2 &
+2026-03-22 14:25:09,113 - study_tools - INFO - RAW_EXAM_INSIGHTS_BATCH_1_CLASS_11_2023_CHEMISTRY_PAPER_END
+2026-03-22 14:25:09,113 - study_tools - INFO - Repairing non-JSON batch exam analysis for source 'Class 11 2023 Chemistry Paper' with model gemini-2.5-flash.
+2026-03-22 14:25:11,903 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 14:25:20,432 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 14:25:20,438 - study_tools - INFO - RAW_EXAM_INSIGHTS_BATCH_2_CLASS_11_CHEMISTRY_TEXTBOOK_START
+2026-03-22 14:25:20,438 - study_tools - INFO - {
+  "summary": "This Class 11 Chemistry textbook, aligned with NCF 2005 and SCF 2010, adopts a constructivist, activity-based learning approach. It focuses on basic principles, real-life applications,
+2026-03-22 14:25:20,438 - study_tools - INFO - RAW_EXAM_INSIGHTS_BATCH_2_CLASS_11_CHEMISTRY_TEXTBOOK_END
+2026-03-22 14:25:20,438 - study_tools - INFO - Repairing non-JSON batch exam analysis for source 'Class 11 Chemistry Textbook' with model gemini-2.5-flash.
+2026-03-22 14:25:23,510 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 14:25:32,572 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 14:25:32,576 - study_tools - INFO - RAW_EXAM_INSIGHTS_BATCH_3_CLASS_11_CHEMISTRY_TEXTBOOK_START
+2026-03-22 14:25:32,576 - study_tools - INFO - {
+  "summary": "This chemistry source covers fundamental laws of chemical combination: Conservation of Mass, Definite Proportions, Multiple Proportions, Gay-Lussac's Law of Gaseous Volume, and Avogadro's Law, along with Dalton's Atomic Theory. It defines atomic, molecular, average atomic, and formula masses, introducing the unified mass unit (u). The mole concept, Avogadro's constant, and molar mass are explained, including calculations for gases at STP. Finally, it briefly introduces analytical chemistry, distinguishing between qualitative and quantitative analysis methods.",
+  "repeated_themes": [
+    "Laws of chemical combination and their experimental verification.",
+    "Calculations involving atomic, molecular, and formula masses.",
+    "Application of the mole concept to determine mass, moles, and number of particles.",
+    "Calculations related to molar volume of gases at STP.",
+    "Definitions of fundamental chemical terms and units."
+  ],
+  "probable_questions": [
+    "State and explain any of the laws of chemical combination with examples.",
+    "Calculate molecular/formula mass for given compounds (e.g., NH3, C2H5OH, Cu(NO3)2).",
+    "Solve problems involving mole concept: mass-to-mole, mole-to-number of particles, or volume-to-mole conversions.",
+    "Distinguish between atomic mass, average atomic mass, molecular mass, and formula mass.",
+    "Define mole, molar mass, Avogadro's constant, and molar volume of a gas."
+  ],
+  "question_patterns": [
+    {
+2026-03-22 14:25:32,576 - study_tools - INFO - RAW_EXAM_INSIGHTS_BATCH_3_CLASS_11_CHEMISTRY_TEXTBOOK_END
+2026-03-22 14:25:32,576 - study_tools - INFO - Repairing non-JSON batch exam analysis for source 'Class 11 Chemistry Textbook' with model gemini-2.5-flash.
+2026-03-22 14:25:40,215 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 14:25:40,595 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-22 14:25:40,596 - gemini_config - WARNING - Exam insights batch analysis 4 hit rate limits (429). Cooling down for 150 seconds before retry 2/2.
+2026-03-22 14:28:19,418 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 14:28:19,421 - study_tools - INFO - RAW_EXAM_INSIGHTS_BATCH_4_CLASS_11_CHEM_NOTES_START
+2026-03-22 14:28:19,421 - study_tools - INFO - {
+  "summary": "This source introduces fundamental concepts in analytical chemistry, distinguishing between qualitative and quantitative analysis. It defines accuracy and precision, then provides a detailed, step-by-step method for determining empirical and molecular formulas from percentage composition, including illustrative examples. Additionally, it covers calculations for molar mass of various compounds, including hydrated salts, and the percentage composition of elements within compounds. The material emphasizes quantitative problem-solving techniques essential for exam preparation.",
+  "repeated_themes": [
+    "Distinction between qualitative and quantitative analysis",
+    "Difference between accuracy and precision in measurements",
+    "Systematic determination of empirical and molecular formulas",
+    "Calculation of molar masses for complex and hydrated compounds",
+    "Calculation of percentage composition of elements in compounds"
+  ],
+  "probable_questions": [
+    "Differentiate between qualitative and quantitative analysis, providing examples of methods for each.",
+    "Explain the concepts of 'accuracy' and 'precision' in chemical measurements, including factors affecting them.",
+    "Given percentage composition and molecular mass, calculate the empirical and molecular formula of a compound.",
+    "Determine the molar mass of complex compounds or hydrated salts (e.g., Mohr's Salt, Sodium Carbonate decahydrate).",
+    "Calculate the percentage composition of each constituent element in a given chemical compound."
+  ],
+  "question_patterns": [
+    {
+      "pattern": "Multi-step calculation problems for empirical and molecular formulas",
+      "evidence": "The detailed 7-step solution for determining the molecular formula of a carbohydrate, followed by similar practice questions."
+    },
+    {
+      "pattern": "Definition and differentiation questions for core concepts",
+      "evidence": "Sections on 'Qualitative and Quantitative Analysis' and 'Accuracy & Precision' directly invite questions asking for definitions, comparisons, and examples."
+    },
+    {
+      "pattern": "Direct application of atomic masses for molar mass and percentage composition calculations",
+      "evidence": "Questions like 'Find out the molar masses of the following compounds' and 'Find the Percentage composition of Constituent elements' require straightforward formula application."
+    }
+  ],
+  "revision_priorities": [
+    "Master the systematic, step-by-step procedure for determining empirical and molecular formulas.",
+    "Clearly understand and be able to differentiate between accuracy and precision, including their implications.",
+    "Practice calculating molar masses for various compounds, especially those involving water of crystallization.",
+    "Practice calculating the percentage composition of each element in given compounds.",
+    "Review the definitions and methods associated with qualitative and quantitative analysis."
+  ]
+}
+2026-03-22 14:28:19,421 - study_tools - INFO - RAW_EXAM_INSIGHTS_BATCH_4_CLASS_11_CHEM_NOTES_END
+2026-03-22 14:28:23,178 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 14:28:23,182 - study_tools - INFO - RAW_EXAM_INSIGHTS_BATCH_5_CLASS_11_CHEM_NOTES_START
+2026-03-22 14:28:23,182 - study_tools - INFO - {
+  "summary": "The provided source content for 'INTRODUCTION TO ANALYTICAL CHEMISTRY' is explicitly marked as 'DELETED PORTION'. Therefore, no analysis of the material can be performed, and no exam-relevant ideas, chapter weightage clues, derivations, formulas, definitions, or likely question styles can be extracted from this specific source.",
+  "repeated_themes": [
+    "Content deleted, no themes identifiable."
+  ],
+  "probable_questions": [
+    "Content deleted, no probable questions can be inferred."
+  ],
+  "question_patterns": [
+    {
+      "pattern": "Content deleted, no question patterns can be identified.",
+      "evidence": "Source content is marked as 'DELETED PORTION'."
+    }
+  ],
+  "revision_priorities": [
+    "Content deleted, no revision priorities can be determined from this source."
+  ]
+}
+2026-03-22 14:28:23,182 - study_tools - INFO - RAW_EXAM_INSIGHTS_BATCH_5_CLASS_11_CHEM_NOTES_END
+2026-03-22 14:28:30,850 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 14:28:30,852 - study_tools - INFO - RAW_EXAM_INSIGHTS_BATCH_6_CLASS_11_CHEM_NOTES_START
+2026-03-22 14:28:30,853 - study_tools - INFO - {
+  "summary": "This source defines gravitation as an attractive force between any two objects with mass, discovered by Sir Isaac Newton through observing a falling apple. It highlights gravitation's role in objects falling to Earth and celestial body orbits. The core concepts are reinforced through multiple formats like key takeaways, a mindmap, and a flowchart, emphasizing the fundamental principles and historical context of this universal force.",
+  "repeated_themes": [
+    "Definition of gravitation as an attractive force between masses.",
+    "Sir Isaac Newton's discovery of gravitation through a falling apple.",
+    "Gravitation's role in objects falling to Earth and celestial body orbits."
+  ],
+  "probable_questions": [
+    "Define gravitation.",
+    "Who discovered gravitation and what observation led to its discovery?",
+    "List two phenomena explained by gravitation."
+  ],
+  "question_patterns": [
+    {
+      "pattern": "Direct Definition/Recall: 'Define X.'",
+      "evidence": "The definition 'Gravitation is an attractive force between any two objects with mass' is stated multiple times."
+    },
+    {
+      "pattern": "Fact Recall (Discovery/History): 'Who discovered X and based on what observation?'",
+      "evidence": "The source repeatedly mentions 'Sir Isaac Newton discovered gravitation by observing a falling apple.'"
+    },
+    {
+      "pattern": "Application/Consequence: 'List effects/applications of X.'",
+      "evidence": "The text states 'This force is responsible for objects falling to Earth and celestial body orbits.'"
+    }
+  ],
+  "revision_priorities": [
+    "Memorize the precise definition of gravitation.",
+    "Recall the name of the discoverer and the specific observation.",
+    "Understand and list the primary examples of gravitation's effects."
+  ]
+}
+2026-03-22 14:28:30,853 - study_tools - INFO - RAW_EXAM_INSIGHTS_BATCH_6_CLASS_11_CHEM_NOTES_END
+2026-03-22 14:28:39,743 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 14:28:39,748 - study_tools - INFO - RAW_EXAM_INSIGHTS_BATCH_7_CLASS_11_CHEM_NOTES_START
+2026-03-22 14:28:39,749 - study_tools - INFO - {
+  "summary": "This source repeatedly defines gravitation as an attractive force between any two objects with mass. It highlights Sir Isaac Newton's discovery through observing a falling apple. The fundamental role of gravitation in explaining objects falling to Earth and the orbits of celestial bodies is also emphasized. The content is basic and foundational, presented across key takeaways, a mindmap, and a flowchart, indicating its importance as a core concept.",
+  "repeated_themes": [
+    "Definition of gravitation as an attractive force between masses",
+    "Sir Isaac Newton's discovery of gravitation via a falling apple",
+    "Gravitation's role in terrestrial falling and celestial orbits"
+  ],
+  "probable_questions": [
+    "What is the definition of gravitation?",
+    "Who discovered gravitation and what observation led to its discovery?",
+    "List two phenomena explained by the force of gravitation."
+  ],
+  "question_patterns": [
+    {
+      "pattern": "Direct Definition Recall",
+      "evidence": "The definition 'Gravitation is an attractive force between any two objects with mass' is stated multiple times."
+    },
+    {
+      "pattern": "Factual Recall (Historical Context)",
+      "evidence": "Newton's discovery and the 'falling apple' observation are consistently mentioned."
+    },
+    {
+      "pattern": "Application/Consequence Identification",
+      "evidence": "The effects of gravitation ('objects falling to Earth and celestial body orbits') are repeatedly highlighted."
+    }
+  ],
+  "revision_priorities": [
+    "Memorize the precise definition of gravitation.",
+    "Recall the historical context of Newton's discovery.",
+    "Understand the two primary applications/consequences of gravitation."
+  ]
+}
+2026-03-22 14:28:39,749 - study_tools - INFO - RAW_EXAM_INSIGHTS_BATCH_7_CLASS_11_CHEM_NOTES_END
+2026-03-22 14:28:48,118 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 14:28:48,124 - study_tools - INFO - RAW_EXAM_INSIGHTS_BATCH_8_CLASS_11_CHEM_NOTES_START
+2026-03-22 14:28:48,124 - study_tools - INFO - {
+  "summary": "This source covers \"Chemistry in Everyday Life,\" focusing on drugs and cleansing agents. It defines various drug types like analgesics, antipyretics, antiseptics, disinfectants, antibiotics (broad, narrow, limited spectrum), and antioxidants, providing examples for each. It also details cleansing agents, differentiating between soaps (saponification reaction included) and synthetic detergents (anionic, cationic, non-ionic types). A crucial section explains the micelle formation and cleansing action of soaps/detergents. Several key facts about specific chemicals are highlighted.",
+  "repeated_themes": [
+    "Definitions and Examples for various chemical categories.",
+    "Classification of drugs and cleansing agents into sub-types.",
+    "Distinction between similar terms (e.g., antiseptics vs. disinfectants).",
+    "Mechanism explanations for chemical processes (e.g., cleansing action)."
+  ],
+  "probable_questions": [
+    "Define analgesics and antipyretics, giving two examples for each.",
+    "Differentiate between antiseptics and disinfectants with suitable examples.",
+    "Explain the saponification reaction with a balanced chemical equation.",
+    "Describe the mechanism of cleansing action of soaps and detergents with a diagram.",
+
+2026-03-22 14:28:48,125 - study_tools - INFO - RAW_EXAM_INSIGHTS_BATCH_8_CLASS_11_CHEM_NOTES_END
+2026-03-22 14:28:48,125 - study_tools - INFO - Repairing non-JSON batch exam analysis for source 'Class 11 Chem Notes' with model gemini-2.5-flash.
+2026-03-22 14:28:53,582 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 14:28:54,000 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-22 14:28:54,002 - gemini_config - WARNING - Exam insights batch analysis 9 hit rate limits (429). Cooling down for 150 seconds before retry 2/2.
+2026-03-22 14:31:32,528 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 14:31:32,531 - study_tools - INFO - RAW_EXAM_INSIGHTS_BATCH_9_CLASS_11_CHEM_NOTES_START
+2026-03-22 14:31:32,531 - study_tools - INFO - {
+  "summary": "This source defines aromatic hydrocarbons and compounds as substances like benzene, characterized by similar structures and chemical properties. It provides Phenol and Naphthalene as key examples. The material also introduces a comparison between aromatic and aliphatic compounds, indicating a focus on fundamental classification in organic chemistry. This foundational understanding is crucial for further study in organic chemistry.",
+  "repeated_themes": [
+    "Definition of Aromatic Compounds",
+    "Examples of Aromatic Hydrocarbons",
+    "Classification of organic compounds (Aromatic vs. Aliphatic)"
+  ],
+  "probable_questions": [
+    "What are aromatic compounds?",
+    "Name two examples of aromatic hydrocarbons.",
+    "How are aromatic compounds distinguished from aliphatic compounds?"
+  ],
+  "question_patterns": [
+    {
+      "pattern": "Definition Recall",
+      "evidence": "Direct definition provided: 'Benzene and all compounds that have structures and chemical properties resembling benzene are classified as aromatic compounds.'"
+    },
+    {
+      "pattern": "Example Identification",
+      "evidence": "Specific examples given: 'Eg: Phenol Naphthalene'."
+    },
+    {
+      "pattern": "Comparative Analysis",
+      "evidence": "Implied by the header 'Aromatic Compounds | Aliphatic Compounds', suggesting a need to differentiate."
+    }
+  ],
+  "revision_priorities": [
+    "Master the definition of aromatic compounds.",
+    "Memorize common examples like Phenol and Naphthalene.",
+    "Understand the fundamental differences between aromatic and aliphatic compounds.",
+    "Focus on the structural characteristics that define aromaticity."
+  ]
+}
+2026-03-22 14:31:32,531 - study_tools - INFO - RAW_EXAM_INSIGHTS_BATCH_9_CLASS_11_CHEM_NOTES_END
+2026-03-22 14:31:40,534 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 14:31:40,538 - study_tools - INFO - RAW_EXAM_INSIGHTS_BATCH_10_CLASS_11_CHEM_NOTES_START
+2026-03-22 14:31:40,735 - study_tools - INFO - RAW_EXAM_INSIGHTS_BATCH_10_CLASS_11_CHEM_NOTES_END
+2026-03-22 14:31:48,980 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 14:31:48,981 - study_tools - INFO - RAW_EXAM_INSIGHTS_BATCH_11_CLASS_11_CHEM_NOTES_START
+2026-03-22 14:31:48,982 - study_tools - INFO - {
+  "summary": "This source defines alkenes as unsaturated hydrocarbons with C=C bonds and general formula CnH2n. It details geometrical isomerism (cis-trans) arising from spatial arrangement around the double bond, providing examples like but-
+2026-03-22 14:31:48,982 - study_tools - INFO - RAW_EXAM_INSIGHTS_BATCH_11_CLASS_11_CHEM_NOTES_END
+2026-03-22 14:31:48,982 - study_tools - INFO - Repairing non-JSON batch exam analysis for source 'Class 11 Chem Notes' with model gemini-2.5-flash.
+2026-03-22 14:31:51,875 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 14:31:58,219 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 14:31:58,225 - study_tools - INFO - RAW_EXAM_INSIGHTS_BATCH_12_CLASS_11_CHEM_NOTES_START
+2026-03-22 14:31:58,225 - study_tools - INFO - {
+  "summary": "Colloids are defined as heterogeneous, two-phase systems, consisting of a dispersed substance within a medium. They exhibit translucence to light and are stable, meaning they do not separate upon standing. This fundamental understanding is crucial for distinguishing colloids from true solutions and suspensions, highlighting their unique physical properties relevant for basic classification questions in chemistry exams.",
+  "repeated_themes": [
+    "Definition of colloids as heterogeneous, two-phase systems.",
+    "Identification of components: dispersed substance and medium.",
+    "Key properties: translucence to light and stability (no separation)."
+  ],
+  "probable_questions": [
+    "What are colloids?",
+    "List two characteristic properties of colloids.",
+    "Explain why colloids are considered a two-phase system."
+  ],
+  "question_patterns": [
+    {
+      "pattern": "Direct Definition/Recall: Questions asking for the definition or basic nature of colloids.",
+      "evidence": "Source states: 'Colloids are heterogeneous & a two phase system...'"
+    },
+    {
+      "pattern": "Property Identification: Questions requiring recall of specific physical characteristics.",
+      "evidence": "Source states: 'They are translucent to light and do not separate on standing.'"
+    }
+  ],
+  "revision_priorities": [
+    "Master the definition and two-phase nature of colloids.",
+    "Remember the optical property (translucent) and stability.",
+    "Prepare for questions differentiating colloids from other mixtures.",
+    "Focus on understanding the basic classification criteria."
+  ]
+}
+2026-03-22 14:31:58,226 - study_tools - INFO - RAW_EXAM_INSIGHTS_BATCH_12_CLASS_11_CHEM_NOTES_END
+2026-03-22 14:32:11,071 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 14:32:11,073 - study_tools - WARNING - Structured final exam-insights synthesis hit the length limit for model gemini-2.5-flash. Retrying as compact JSON.
+2026-03-22 14:32:21,975 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 14:32:21,980 - study_tools - INFO - RAW_EXAM_INSIGHTS_SYNTHESIS_COMPACT_START
+2026-03-22 14:32:21,980 - study_tools - INFO - {
+  "title": "Class 11 Chemistry Exam Insights",
+  "overview": "This report analyzes Class 11 Chemistry exam patterns, covering fundamental concepts, analytical chemistry, and organic topics like alkynes and aromatic compounds. The exam is typically 70 marks, 3 hours, with MCQs, VSA, and SA sections. Key focus areas include definitions, calculations, reaction mechanisms, and distinguishing between related concepts. Gravitation
+2026-03-22 14:32:21,981 - study_tools - INFO - RAW_EXAM_INSIGHTS_SYNTHESIS_COMPACT_END
+2026-03-22 14:32:21,981 - study_tools - INFO - Repairing non-JSON compact exam-insights synthesis with model gemini-2.5-flash.
+2026-03-22 14:32:28,427 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 14:32:28,434 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 14:32:28] "POST /api/library/exam-insights HTTP/1.1" 200 -
+2026-03-22 14:36:50,820 - study_tools - INFO - Generating mock paper with model: gemini-2.5-flash
+2026-03-22 14:37:16,137 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 14:37:16,707 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-22 14:37:16,709 - gemini_config - WARNING - Mock paper generation compact hit rate limits (429). Cooling down for 150 seconds before retry 2/2.
+2026-03-22 14:55:57,984 - __main__ - INFO - Database initialized/checked successfully.
+2026-03-22 14:55:58,020 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.100:5000
+2026-03-22 14:55:58,020 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-03-22 14:55:58,022 - werkzeug - INFO -  * Restarting with stat
+2026-03-22 14:55:59,811 - __main__ - INFO - Database initialized/checked successfully.
+2026-03-22 14:55:59,831 - werkzeug - WARNING -  * Debugger is active!
+2026-03-22 14:55:59,837 - werkzeug - INFO -  * Debugger PIN: 199-107-668
+2026-03-22 14:56:15,209 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 14:56:15] "GET / HTTP/1.1" 200 -
+2026-03-22 14:56:15,467 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 14:56:15] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2026-03-22 14:56:15,477 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 14:56:15] "[36mGET /static/app.js HTTP/1.1[0m" 304 -
+2026-03-22 14:56:15,604 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 14:56:15] "GET /api/library/documents HTTP/1.1" 200 -
+2026-03-22 14:56:46,435 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-22 14:56:46,436 - gemini_config - WARNING - Source summarization Class 11 2023 Chemistry Paper hit rate limits (429). Cooling down for 150 seconds before retry 2/2.
+2026-03-22 14:59:17,012 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-22 14:59:17,013 - study_tools - WARNING - Source summarization failed for 'Class 11 2023 Chemistry Paper': Error code: 429 - [{'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\nPlease retry in 40.844678635s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '40s'}]}}]
+2026-03-22 14:59:18,155 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-22 14:59:18,156 - gemini_config - WARNING - Source summarization Class 11 Chem Notes hit rate limits (429). Cooling down for 150 seconds before retry 2/2.
+2026-03-22 15:01:48,753 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-22 15:01:48,754 - study_tools - WARNING - Source summarization failed for 'Class 11 Chem Notes': Error code: 429 - [{'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\nPlease retry in 9.122160561s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '9s'}]}}]
+2026-03-22 15:01:49,609 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-22 15:01:49,610 - gemini_config - WARNING - Source summarization Class 11 Chem Notes hit rate limits (429). Cooling down for 150 seconds before retry 2/2.
+2026-03-22 15:04:20,197 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-22 15:04:20,198 - study_tools - WARNING - Source summarization failed for 'Class 11 Chem Notes': Error code: 429 - [{'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\nPlease retry in 37.657402551s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '37s'}]}}]
+2026-03-22 15:04:21,137 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-22 15:04:21,138 - gemini_config - WARNING - Source summarization Class 11 Chem Notes hit rate limits (429). Cooling down for 150 seconds before retry 2/2.
+2026-03-22 15:06:51,737 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-22 15:06:51,738 - study_tools - WARNING - Source summarization failed for 'Class 11 Chem Notes': Error code: 429 - [{'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\nPlease retry in 6.122629147s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '6s'}]}}]
+2026-03-22 15:06:52,594 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-22 15:06:52,594 - gemini_config - WARNING - Source summarization Class 11 Chem Notes hit rate limits (429). Cooling down for 150 seconds before retry 2/2.
+2026-03-22 18:47:54,704 - app - INFO - Database initialized/checked successfully.
+2026-03-22 18:50:54,310 - __main__ - INFO - Database initialized/checked successfully.
+2026-03-22 18:50:54,468 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.100:5000
+2026-03-22 18:50:54,469 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-03-22 18:50:54,476 - werkzeug - INFO -  * Restarting with stat
+2026-03-22 18:50:58,851 - __main__ - INFO - Database initialized/checked successfully.
+2026-03-22 18:50:58,895 - werkzeug - WARNING -  * Debugger is active!
+2026-03-22 18:50:58,943 - werkzeug - INFO -  * Debugger PIN: 199-107-668
+2026-03-22 18:51:04,343 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 18:51:04] "GET / HTTP/1.1" 200 -
+2026-03-22 18:51:04,608 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 18:51:04] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2026-03-22 18:51:04,611 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 18:51:04] "[36mGET /static/app.js HTTP/1.1[0m" 304 -
+2026-03-22 18:51:04,781 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 18:51:04] "GET /api/library/documents HTTP/1.1" 200 -
+2026-03-22 18:51:04,796 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 18:51:04] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-03-22 18:51:10,057 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 404 Not Found"
+2026-03-22 18:51:10,067 - study_tools - WARNING - Source summarization failed for 'Class 11 2023 Chemistry Paper': Error code: 404 - {'error': {'message': 'No endpoints available matching your guardrail restrictions and data policy. Configure: https://openrouter.ai/settings/privacy', 'code': 404}}
+2026-03-22 18:51:11,881 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 404 Not Found"
+2026-03-22 18:51:11,882 - study_tools - WARNING - Source summarization failed for 'Class 11 Chem Notes': Error code: 404 - {'error': {'message': 'No endpoints available matching your guardrail restrictions and data policy. Configure: https://openrouter.ai/settings/privacy', 'code': 404}}
+2026-03-22 18:51:13,516 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 404 Not Found"
+2026-03-22 18:51:13,517 - study_tools - WARNING - Source summarization failed for 'Class 11 Chem Notes': Error code: 404 - {'error': {'message': 'No endpoints available matching your guardrail restrictions and data policy. Configure: https://openrouter.ai/settings/privacy', 'code': 404}}
+2026-03-22 18:51:14,556 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 404 Not Found"
+2026-03-22 18:51:14,558 - study_tools - WARNING - Source summarization failed for 'Class 11 Chem Notes': Error code: 404 - {'error': {'message': 'No endpoints available matching your guardrail restrictions and data policy. Configure: https://openrouter.ai/settings/privacy', 'code': 404}}
+2026-03-22 18:51:15,557 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 404 Not Found"
+2026-03-22 18:51:15,559 - study_tools - WARNING - Source summarization failed for 'Class 11 Chem Notes': Error code: 404 - {'error': {'message': 'No endpoints available matching your guardrail restrictions and data policy. Configure: https://openrouter.ai/settings/privacy', 'code': 404}}
+2026-03-22 18:51:17,184 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 404 Not Found"
+2026-03-22 18:51:17,185 - study_tools - WARNING - Source summarization failed for 'Class 11 Chem Notes': Error code: 404 - {'error': {'message': 'No endpoints available matching your guardrail restrictions and data policy. Configure: https://openrouter.ai/settings/privacy', 'code': 404}}
+2026-03-22 18:51:18,996 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 404 Not Found"
+2026-03-22 18:51:18,997 - study_tools - WARNING - Source summarization failed for 'Class 11 Chemistry Textbook': Error code: 404 - {'error': {'message': 'No endpoints available matching your guardrail restrictions and data policy. Configure: https://openrouter.ai/settings/privacy', 'code': 404}}
+2026-03-22 18:51:19,892 - study_tools - INFO - Generating exam insights with model: openai/gpt-oss-120b:free
+2026-03-22 18:51:20,286 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 404 Not Found"
+2026-03-22 18:51:20,287 - study_tools - WARNING - Batch exam-insights analysis failed for model openai/gpt-oss-120b:free, falling back to single-pass mode: Error code: 404 - {'error': {'message': 'No endpoints available matching your guardrail restrictions and data policy. Configure: https://openrouter.ai/settings/privacy', 'code': 404}}
+2026-03-22 18:51:20,376 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 404 Not Found"
+2026-03-22 18:51:20,378 - study_tools - WARNING - Single-pass structured exam-insights generation failed for model openai/gpt-oss-120b:free. Retrying compact mode: Error code: 404 - {'error': {'message': 'No endpoints available matching your guardrail restrictions and data policy. Configure: https://openrouter.ai/settings/privacy', 'code': 404}}
+2026-03-22 18:51:20,440 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 404 Not Found"
+2026-03-22 18:51:20,442 - study_tools - WARNING - Single-pass compact exam-insights generation failed for model openai/gpt-oss-120b:free: Error code: 404 - {'error': {'message': 'No endpoints available matching your guardrail restrictions and data policy. Configure: https://openrouter.ai/settings/privacy', 'code': 404}}
+2026-03-22 18:51:20,442 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 18:51:20] "POST /api/library/exam-insights HTTP/1.1" 200 -
+2026-03-22 18:53:20,870 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Shikhar Gupta\\PycharmProjects\\Xemo AI\\backend\\omex\\app.py', reloading
+2026-03-22 18:53:21,373 - werkzeug - INFO -  * Restarting with stat
+2026-03-22 18:53:25,822 - __main__ - INFO - Database initialized/checked successfully.
+2026-03-22 18:53:25,924 - werkzeug - WARNING -  * Debugger is active!
+2026-03-22 18:53:25,938 - werkzeug - INFO -  * Debugger PIN: 199-107-668
+2026-03-22 18:55:37,746 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 18:55:37] "GET / HTTP/1.1" 200 -
+2026-03-22 18:55:37,975 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 18:55:37] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2026-03-22 18:55:37,980 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 18:55:37] "[36mGET /static/app.js HTTP/1.1[0m" 304 -
+2026-03-22 18:55:38,068 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 18:55:38] "GET /api/library/documents HTTP/1.1" 200 -
+2026-03-22 18:55:41,164 - study_tools - INFO - Generating exam insights with model: openai/gpt-oss-120b:free
+2026-03-22 18:55:43,296 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 18:55:55,904 - openrouter_config - INFO - OPENROUTER_USAGE operation=Exam insights batch analysis 1 model=openai/gpt-oss-120b:free prompt_tokens=1957 completion_tokens=866 total_tokens=2823 prompt_details=PromptTokensDetails(audio_tokens=0, cached_tokens=0, cache_write_tokens=0, video_tokens=0) completion_details=CompletionTokensDetails(accepted_prediction_tokens=None, audio_tokens=0, reasoning_tokens=187, rejected_prediction_tokens=None, image_tokens=0)
+2026-03-22 18:55:55,905 - study_tools - INFO - RAW_EXAM_INSIGHTS_BATCH_1_CLASS_11_2023_CHEMISTRY_PAPER_START
+2026-03-22 18:55:55,931 - study_tools - INFO - RAW_EXAM_INSIGHTS_BATCH_1_CLASS_11_2023_CHEMISTRY_PAPER_END
+2026-03-22 18:55:57,758 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 18:56:11,995 - openrouter_config - INFO - OPENROUTER_USAGE operation=Exam insights batch analysis 2 model=openai/gpt-oss-120b:free prompt_tokens=2698 completion_tokens=998 total_tokens=3696 prompt_details=PromptTokensDetails(audio_tokens=0, cached_tokens=0, cache_write_tokens=0, video_tokens=0) completion_details=CompletionTokensDetails(accepted_prediction_tokens=None, audio_tokens=0, reasoning_tokens=538, rejected_prediction_tokens=None, image_tokens=0)
+2026-03-22 18:56:11,995 - study_tools - INFO - RAW_EXAM_INSIGHTS_BATCH_2_CLASS_11_CHEMISTRY_TEXTBOOK_START
+2026-03-22 18:56:12,001 - study_tools - INFO - RAW_EXAM_INSIGHTS_BATCH_2_CLASS_11_CHEMISTRY_TEXTBOOK_END
+2026-03-22 18:56:15,048 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 18:56:29,513 - openrouter_config - INFO - OPENROUTER_USAGE operation=Exam insights batch analysis 3 model=openai/gpt-oss-120b:free prompt_tokens=1668 completion_tokens=787 total_tokens=2455 prompt_details=PromptTokensDetails(audio_tokens=0, cached_tokens=0, cache_write_tokens=0, video_tokens=0) completion_details=CompletionTokensDetails(accepted_prediction_tokens=None, audio_tokens=0, reasoning_tokens=388, rejected_prediction_tokens=None, image_tokens=0)
+2026-03-22 18:56:29,514 - study_tools - INFO - RAW_EXAM_INSIGHTS_BATCH_3_CLASS_11_CHEM_NOTES_START
+2026-03-22 18:56:29,523 - study_tools - INFO - RAW_EXAM_INSIGHTS_BATCH_3_CLASS_11_CHEM_NOTES_END
+2026-03-22 18:56:30,735 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 18:56:40,717 - openrouter_config - INFO - OPENROUTER_USAGE operation=Exam insights batch analysis 4 model=openai/gpt-oss-120b:free prompt_tokens=282 completion_tokens=695 total_tokens=977 prompt_details=PromptTokensDetails(audio_tokens=0, cached_tokens=0, cache_write_tokens=0, video_tokens=0) completion_details=CompletionTokensDetails(accepted_prediction_tokens=None, audio_tokens=0, reasoning_tokens=300, rejected_prediction_tokens=None, image_tokens=0)
+2026-03-22 18:56:40,718 - study_tools - INFO - RAW_EXAM_INSIGHTS_BATCH_4_CLASS_11_CHEM_NOTES_START
+2026-03-22 18:56:40,727 - study_tools - INFO - RAW_EXAM_INSIGHTS_BATCH_4_CLASS_11_CHEM_NOTES_END
+2026-03-22 18:56:41,984 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 18:56:55,101 - openrouter_config - INFO - OPENROUTER_USAGE operation=Exam insights batch analysis 5 model=openai/gpt-oss-120b:free prompt_tokens=413 completion_tokens=1044 total_tokens=1457 prompt_details=PromptTokensDetails(audio_tokens=0, cached_tokens=0, cache_write_tokens=0, video_tokens=0) completion_details=CompletionTokensDetails(accepted_prediction_tokens=None, audio_tokens=0, reasoning_tokens=826, rejected_prediction_tokens=None, image_tokens=0)
+2026-03-22 18:56:55,102 - study_tools - INFO - RAW_EXAM_INSIGHTS_BATCH_5_CLASS_11_CHEM_NOTES_START
+2026-03-22 18:56:55,106 - study_tools - INFO - RAW_EXAM_INSIGHTS_BATCH_5_CLASS_11_CHEM_NOTES_END
+2026-03-22 18:56:56,250 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 18:57:03,022 - openrouter_config - INFO - OPENROUTER_USAGE operation=Exam insights batch analysis 6 model=openai/gpt-oss-120b:free prompt_tokens=389 completion_tokens=684 total_tokens=1073 prompt_details=PromptTokensDetails(audio_tokens=0, cached_tokens=0, cache_write_tokens=0, video_tokens=0) completion_details=CompletionTokensDetails(accepted_prediction_tokens=None, audio_tokens=0, reasoning_tokens=430, rejected_prediction_tokens=None, image_tokens=0)
+2026-03-22 18:57:03,022 - study_tools - INFO - RAW_EXAM_INSIGHTS_BATCH_6_CLASS_11_CHEM_NOTES_START
+2026-03-22 18:57:03,031 - study_tools - INFO - RAW_EXAM_INSIGHTS_BATCH_6_CLASS_11_CHEM_NOTES_END
+2026-03-22 18:57:04,506 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 18:57:17,280 - openrouter_config - INFO - OPENROUTER_USAGE operation=Exam insights batch analysis 7 model=openai/gpt-oss-120b:free prompt_tokens=1467 completion_tokens=822 total_tokens=2289 prompt_details=PromptTokensDetails(audio_tokens=0, cached_tokens=0, cache_write_tokens=0, video_tokens=0) completion_details=CompletionTokensDetails(accepted_prediction_tokens=None, audio_tokens=0, reasoning_tokens=355, rejected_prediction_tokens=None, image_tokens=0)
+2026-03-22 18:57:17,280 - study_tools - INFO - RAW_EXAM_INSIGHTS_BATCH_7_CLASS_11_CHEM_NOTES_START
+2026-03-22 18:57:17,285 - study_tools - INFO - RAW_EXAM_INSIGHTS_BATCH_7_CLASS_11_CHEM_NOTES_END
+2026-03-22 18:57:18,620 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 18:57:25,712 - openrouter_config - INFO - OPENROUTER_USAGE operation=Exam insights batch analysis 8 model=openai/gpt-oss-120b:free prompt_tokens=502 completion_tokens=674 total_tokens=1176 prompt_details=PromptTokensDetails(audio_tokens=0, cached_tokens=0, cache_write_tokens=0, video_tokens=0) completion_details=CompletionTokensDetails(accepted_prediction_tokens=None, audio_tokens=0, reasoning_tokens=334, rejected_prediction_tokens=None, image_tokens=0)
+2026-03-22 18:57:25,713 - study_tools - INFO - RAW_EXAM_INSIGHTS_BATCH_8_CLASS_11_CHEM_NOTES_START
+2026-03-22 18:57:25,716 - study_tools - INFO - RAW_EXAM_INSIGHTS_BATCH_8_CLASS_11_CHEM_NOTES_END
+2026-03-22 18:57:27,111 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 18:57:37,862 - openrouter_config - INFO - OPENROUTER_USAGE operation=Exam insights batch analysis 9 model=openai/gpt-oss-120b:free prompt_tokens=2049 completion_tokens=987 total_tokens=3036 prompt_details=PromptTokensDetails(audio_tokens=0, cached_tokens=0, cache_write_tokens=0, video_tokens=0) completion_details=CompletionTokensDetails(accepted_prediction_tokens=None, audio_tokens=0, reasoning_tokens=309, rejected_prediction_tokens=None, image_tokens=0)
+2026-03-22 18:57:37,863 - study_tools - INFO - RAW_EXAM_INSIGHTS_BATCH_9_CLASS_11_CHEM_NOTES_START
+2026-03-22 18:57:37,868 - study_tools - INFO - RAW_EXAM_INSIGHTS_BATCH_9_CLASS_11_CHEM_NOTES_END
+2026-03-22 18:57:39,991 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 18:57:49,921 - openrouter_config - INFO - OPENROUTER_USAGE operation=Exam insights batch analysis 10 model=openai/gpt-oss-120b:free prompt_tokens=1548 completion_tokens=973 total_tokens=2521 prompt_details=PromptTokensDetails(audio_tokens=0, cached_tokens=0, cache_write_tokens=0, video_tokens=0) completion_details=CompletionTokensDetails(accepted_prediction_tokens=None, audio_tokens=0, reasoning_tokens=335, rejected_prediction_tokens=None, image_tokens=0)
+2026-03-22 18:57:49,922 - study_tools - INFO - RAW_EXAM_INSIGHTS_BATCH_10_CLASS_11_CHEM_NOTES_START
+2026-03-22 18:57:49,926 - study_tools - INFO - RAW_EXAM_INSIGHTS_BATCH_10_CLASS_11_CHEM_NOTES_END
+2026-03-22 18:57:59,940 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 18:58:01,090 - openrouter_config - INFO - OPENROUTER_USAGE operation=Exam insights batch analysis 11 model=openai/gpt-oss-120b:free usage=missing
+2026-03-22 18:58:01,090 - study_tools - WARNING - Batch exam-insights analysis failed for model openai/gpt-oss-120b:free, falling back to single-pass mode: 'NoneType' object is not subscriptable
+2026-03-22 18:58:03,040 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 18:58:22,128 - openrouter_config - INFO - OPENROUTER_USAGE operation=Exam insights synthesis structured model=openai/gpt-oss-120b:free prompt_tokens=6009 completion_tokens=1332 total_tokens=7341 prompt_details=PromptTokensDetails(audio_tokens=0, cached_tokens=0, cache_write_tokens=0, video_tokens=0) completion_details=CompletionTokensDetails(accepted_prediction_tokens=None, audio_tokens=0, reasoning_tokens=765, rejected_prediction_tokens=None, image_tokens=0)
+2026-03-22 18:58:22,129 - study_tools - INFO - RAW_EXAM_INSIGHTS_SYNTHESIS_STRUCTURED_START
+2026-03-22 18:58:22,137 - study_tools - INFO - RAW_EXAM_INSIGHTS_SYNTHESIS_STRUCTURED_END
+2026-03-22 18:58:22,142 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 18:58:22] "POST /api/library/exam-insights HTTP/1.1" 200 -
+2026-03-22 18:58:56,309 - study_tools - INFO - Generating mock paper with model: openai/gpt-oss-120b:free
+2026-03-22 18:59:00,276 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 18:59:52,689 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 19:00:44,927 - openrouter_config - INFO - OPENROUTER_USAGE operation=Mock paper generation compact model=openai/gpt-oss-120b:free prompt_tokens=10870 completion_tokens=3412 total_tokens=14282 prompt_details=PromptTokensDetails(audio_tokens=0, cached_tokens=0, cache_write_tokens=0, video_tokens=0) completion_details=CompletionTokensDetails(accepted_prediction_tokens=None, audio_tokens=0, reasoning_tokens=242, rejected_prediction_tokens=None, image_tokens=0)
+2026-03-22 19:00:44,929 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 19:00:44] "POST /api/library/mock-paper HTTP/1.1" 200 -
+2026-03-22 19:03:39,876 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Shikhar Gupta\\PycharmProjects\\Xemo AI\\backend\\omex\\study_tools.py', reloading
+2026-03-22 19:03:40,249 - werkzeug - INFO -  * Restarting with stat
+2026-03-22 19:03:44,984 - __main__ - INFO - Database initialized/checked successfully.
+2026-03-22 19:03:45,048 - werkzeug - WARNING -  * Debugger is active!
+2026-03-22 19:03:45,059 - werkzeug - INFO -  * Debugger PIN: 199-107-668
+2026-03-22 19:03:51,332 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Shikhar Gupta\\PycharmProjects\\Xemo AI\\backend\\omex\\study_tools.py', reloading
+2026-03-22 19:03:51,746 - werkzeug - INFO -  * Restarting with stat
+2026-03-22 19:03:56,041 - __main__ - INFO - Database initialized/checked successfully.
+2026-03-22 19:03:56,089 - werkzeug - WARNING -  * Debugger is active!
+2026-03-22 19:03:56,100 - werkzeug - INFO -  * Debugger PIN: 199-107-668
+2026-03-22 19:05:18,230 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 19:05:18] "GET / HTTP/1.1" 200 -
+2026-03-22 19:05:18,454 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 19:05:18] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2026-03-22 19:05:18,457 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 19:05:18] "GET /static/app.js HTTP/1.1" 200 -
+2026-03-22 19:05:18,577 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 19:05:18] "GET /api/library/documents HTTP/1.1" 200 -
+2026-03-22 19:05:21,044 - study_tools - INFO - Generating mock paper with model: openai/gpt-oss-120b:free
+2026-03-22 19:05:24,727 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 19:06:01,815 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 19:06:51,191 - openrouter_config - INFO - OPENROUTER_USAGE operation=Mock paper generation compact model=openai/gpt-oss-120b:free prompt_tokens=10870 completion_tokens=4114 total_tokens=14984 prompt_details=PromptTokensDetails(audio_tokens=0, cached_tokens=0, cache_write_tokens=0, video_tokens=0) completion_details=CompletionTokensDetails(accepted_prediction_tokens=None, audio_tokens=0, reasoning_tokens=256, rejected_prediction_tokens=None, image_tokens=0)
+2026-03-22 19:06:51,194 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 19:06:51] "POST /api/library/mock-paper HTTP/1.1" 200 -
+2026-03-22 19:09:34,881 - study_tools - INFO - Generating mock paper with model: openai/gpt-oss-120b:free
+2026-03-22 19:09:46,829 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 19:11:03,148 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 19:12:21,390 - openrouter_config - INFO - OPENROUTER_USAGE operation=Mock paper generation compact model=openai/gpt-oss-120b:free prompt_tokens=10870 completion_tokens=5674 total_tokens=16544 prompt_details=PromptTokensDetails(audio_tokens=0, cached_tokens=0, cache_write_tokens=0, video_tokens=0) completion_details=CompletionTokensDetails(accepted_prediction_tokens=None, audio_tokens=0, reasoning_tokens=1791, rejected_prediction_tokens=None, image_tokens=0)
+2026-03-22 19:12:21,393 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 19:12:21] "POST /api/library/mock-paper HTTP/1.1" 200 -
+2026-03-22 19:16:30,821 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Shikhar Gupta\\PycharmProjects\\Xemo AI\\backend\\omex\\study_tools.py', reloading
+2026-03-22 19:16:31,171 - werkzeug - INFO -  * Restarting with stat
+2026-03-22 19:16:35,475 - __main__ - INFO - Database initialized/checked successfully.
+2026-03-22 19:16:35,515 - werkzeug - WARNING -  * Debugger is active!
+2026-03-22 19:16:35,526 - werkzeug - INFO -  * Debugger PIN: 199-107-668
+2026-03-22 19:16:44,890 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Shikhar Gupta\\PycharmProjects\\Xemo AI\\backend\\omex\\study_tools.py', reloading
+2026-03-22 19:16:45,327 - werkzeug - INFO -  * Restarting with stat
+2026-03-22 19:16:49,537 - __main__ - INFO - Database initialized/checked successfully.
+2026-03-22 19:16:49,580 - werkzeug - WARNING -  * Debugger is active!
+2026-03-22 19:16:49,591 - werkzeug - INFO -  * Debugger PIN: 199-107-668
+2026-03-22 19:17:11,212 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Shikhar Gupta\\PycharmProjects\\Xemo AI\\backend\\omex\\study_tools.py', reloading
+2026-03-22 19:17:11,528 - werkzeug - INFO -  * Restarting with stat
+2026-03-22 19:17:15,640 - __main__ - INFO - Database initialized/checked successfully.
+2026-03-22 19:17:15,685 - werkzeug - WARNING -  * Debugger is active!
+2026-03-22 19:17:15,694 - werkzeug - INFO -  * Debugger PIN: 199-107-668
+2026-03-22 19:17:32,928 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Shikhar Gupta\\PycharmProjects\\Xemo AI\\backend\\omex\\app.py', reloading
+2026-03-22 19:17:33,263 - werkzeug - INFO -  * Restarting with stat
+2026-03-22 19:17:37,294 - __main__ - INFO - Database initialized/checked successfully.
+2026-03-22 19:17:37,340 - werkzeug - WARNING -  * Debugger is active!
+2026-03-22 19:17:37,350 - werkzeug - INFO -  * Debugger PIN: 199-107-668
+2026-03-22 19:19:08,990 - app - INFO - Database initialized/checked successfully.
+2026-03-22 19:20:06,561 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 19:20:06] "GET / HTTP/1.1" 200 -
+2026-03-22 19:20:06,801 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 19:20:06] "GET /static/styles.css HTTP/1.1" 200 -
+2026-03-22 19:20:06,803 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 19:20:06] "GET /static/app.js HTTP/1.1" 200 -
+2026-03-22 19:20:06,885 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 19:20:06] "GET /api/library/documents HTTP/1.1" 200 -
+2026-03-22 19:20:11,305 - study_tools - INFO - Generating mock paper with model: openai/gpt-oss-120b:free
+2026-03-22 19:20:15,171 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 19:21:11,309 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 19:21:59,922 - openrouter_config - INFO - OPENROUTER_USAGE operation=Mock paper generation compact model=openai/gpt-oss-120b:free prompt_tokens=10870 completion_tokens=3326 total_tokens=14196 prompt_details=PromptTokensDetails(audio_tokens=0, cached_tokens=0, cache_write_tokens=0, video_tokens=0) completion_details=CompletionTokensDetails(accepted_prediction_tokens=None, audio_tokens=0, reasoning_tokens=320, rejected_prediction_tokens=None, image_tokens=0)
+2026-03-22 19:21:59,925 - __main__ - ERROR - Error in create_mock_paper_api: cannot access local variable 'raw_questions' where it is not associated with a value
+Traceback (most recent call last):
+  File "C:\Users\Shikhar Gupta\PycharmProjects\Xemo AI\backend\omex\app.py", line 66, in decorated_function
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shikhar Gupta\PycharmProjects\Xemo AI\backend\omex\app.py", line 449, in create_mock_paper_api
+    result = generate_mock_paper(
+             ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shikhar Gupta\PycharmProjects\Xemo AI\backend\omex\study_tools.py", line 1410, in generate_mock_paper
+    raise last_error
+  File "C:\Users\Shikhar Gupta\PycharmProjects\Xemo AI\backend\omex\study_tools.py", line 1392, in generate_mock_paper
+    parsed = normalize_mock_paper_payload(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shikhar Gupta\PycharmProjects\Xemo AI\backend\omex\study_tools.py", line 625, in normalize_mock_paper_payload
+    fallback=section_default_marks * max(len(raw_questions), 1),
+                                             ^^^^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'raw_questions' where it is not associated with a value
+2026-03-22 19:21:59,930 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 19:21:59] "[35m[1mPOST /api/library/mock-paper HTTP/1.1[0m" 500 -
+2026-03-22 19:27:18,780 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Shikhar Gupta\\PycharmProjects\\Xemo AI\\backend\\omex\\study_tools.py', reloading
+2026-03-22 19:27:19,235 - werkzeug - INFO -  * Restarting with stat
+2026-03-22 19:27:23,651 - __main__ - INFO - Database initialized/checked successfully.
+2026-03-22 19:27:23,699 - werkzeug - WARNING -  * Debugger is active!
+2026-03-22 19:27:23,709 - werkzeug - INFO -  * Debugger PIN: 199-107-668
+2026-03-22 19:28:05,685 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 19:28:05] "GET / HTTP/1.1" 200 -
+2026-03-22 19:28:05,898 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 19:28:05] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2026-03-22 19:28:05,900 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 19:28:05] "[36mGET /static/app.js HTTP/1.1[0m" 304 -
+2026-03-22 19:28:05,988 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 19:28:05] "GET /api/library/documents HTTP/1.1" 200 -
+2026-03-22 19:28:08,426 - study_tools - INFO - Generating mock paper with model: openai/gpt-oss-120b:free
+2026-03-22 19:28:11,778 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 19:29:09,115 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 19:30:09,751 - openrouter_config - INFO - OPENROUTER_USAGE operation=Mock paper generation compact model=openai/gpt-oss-120b:free prompt_tokens=10870 completion_tokens=5129 total_tokens=15999 prompt_details=PromptTokensDetails(audio_tokens=0, cached_tokens=0, cache_write_tokens=0, video_tokens=0) completion_details=CompletionTokensDetails(accepted_prediction_tokens=None, audio_tokens=0, reasoning_tokens=1360, rejected_prediction_tokens=None, image_tokens=0)
+2026-03-22 19:30:09,755 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 19:30:09] "POST /api/library/mock-paper HTTP/1.1" 200 -
+2026-03-22 19:30:53,191 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-22 19:31:33,753 - openrouter_config - INFO - OPENROUTER_USAGE operation=Mock paper grading model=openai/gpt-oss-120b:free prompt_tokens=3776 completion_tokens=2916 total_tokens=6692 prompt_details=PromptTokensDetails(audio_tokens=0, cached_tokens=0, cache_write_tokens=0, video_tokens=0) completion_details=CompletionTokensDetails(accepted_prediction_tokens=None, audio_tokens=0, reasoning_tokens=682, rejected_prediction_tokens=None, image_tokens=0)
+2026-03-22 19:31:33,755 - werkzeug - INFO - 127.0.0.1 - - [22/Mar/2026 19:31:33] "POST /api/library/mock-paper/grade HTTP/1.1" 200 -
+2026-03-22 19:33:51,967 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Shikhar Gupta\\PycharmProjects\\Xemo AI\\backend\\omex\\study_tools.py', reloading
+2026-03-22 19:33:52,297 - werkzeug - INFO -  * Restarting with stat
+2026-03-22 19:33:56,397 - __main__ - INFO - Database initialized/checked successfully.
+2026-03-22 19:33:56,438 - werkzeug - WARNING -  * Debugger is active!
+2026-03-22 19:33:56,448 - werkzeug - INFO -  * Debugger PIN: 199-107-668
+2026-03-22 19:34:03,714 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Shikhar Gupta\\PycharmProjects\\Xemo AI\\backend\\omex\\study_tools.py', reloading
+2026-03-22 19:34:04,045 - werkzeug - INFO -  * Restarting with stat
+2026-03-22 19:34:07,948 - __main__ - INFO - Database initialized/checked successfully.
+2026-03-22 19:34:07,990 - werkzeug - WARNING -  * Debugger is active!
+2026-03-22 19:34:08,001 - werkzeug - INFO -  * Debugger PIN: 199-107-668
+2026-03-23 11:51:54,021 - app - INFO - Database initialized/checked successfully.
+2026-03-23 11:54:18,068 - __main__ - INFO - Database initialized/checked successfully.
+2026-03-23 11:54:18,627 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.100:5000
+2026-03-23 11:54:18,627 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-03-23 11:54:18,634 - werkzeug - INFO -  * Restarting with stat
+2026-03-23 11:54:21,483 - __main__ - INFO - Database initialized/checked successfully.
+2026-03-23 11:54:21,509 - werkzeug - WARNING -  * Debugger is active!
+2026-03-23 11:54:21,522 - werkzeug - INFO -  * Debugger PIN: 199-107-668
+2026-03-23 11:54:26,198 - werkzeug - INFO - 127.0.0.1 - - [23/Mar/2026 11:54:26] "GET / HTTP/1.1" 200 -
+2026-03-23 11:54:26,580 - werkzeug - INFO - 127.0.0.1 - - [23/Mar/2026 11:54:26] "GET /static/app.js HTTP/1.1" 200 -
+2026-03-23 11:54:26,583 - werkzeug - INFO - 127.0.0.1 - - [23/Mar/2026 11:54:26] "GET /static/styles.css HTTP/1.1" 200 -
+2026-03-23 11:54:26,972 - werkzeug - INFO - 127.0.0.1 - - [23/Mar/2026 11:54:26] "GET /api/library/documents HTTP/1.1" 200 -
+2026-03-23 11:54:26,975 - werkzeug - INFO - 127.0.0.1 - - [23/Mar/2026 11:54:26] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-03-23 11:54:56,123 - study_tools - INFO - Generating mock paper with model: openai/gpt-oss-120b:free
+2026-03-23 11:54:59,773 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-23 11:56:01,977 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-23 11:56:42,909 - openrouter_config - INFO - OPENROUTER_USAGE operation=Mock paper generation compact model=openai/gpt-oss-120b:free prompt_tokens=7893 completion_tokens=3587 total_tokens=11480 prompt_details=PromptTokensDetails(audio_tokens=0, cached_tokens=0, cache_write_tokens=0, video_tokens=0) completion_details=CompletionTokensDetails(accepted_prediction_tokens=None, audio_tokens=0, reasoning_tokens=870, rejected_prediction_tokens=None, image_tokens=0)
+2026-03-23 11:56:42,917 - werkzeug - INFO - 127.0.0.1 - - [23/Mar/2026 11:56:42] "POST /api/library/mock-paper HTTP/1.1" 200 -
+2026-03-23 12:03:01,240 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Shikhar Gupta\\PycharmProjects\\Xemo AI\\backend\\omex\\study_tools.py', reloading
+2026-03-23 12:03:02,064 - werkzeug - INFO -  * Restarting with stat
+2026-03-23 12:03:05,338 - __main__ - INFO - Database initialized/checked successfully.
+2026-03-23 12:03:05,381 - werkzeug - WARNING -  * Debugger is active!
+2026-03-23 12:03:05,387 - werkzeug - INFO -  * Debugger PIN: 199-107-668
+2026-03-23 12:03:10,589 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Shikhar Gupta\\PycharmProjects\\Xemo AI\\backend\\omex\\study_tools.py', reloading
+2026-03-23 12:03:10,787 - werkzeug - INFO -  * Restarting with stat
+2026-03-23 12:03:12,806 - __main__ - INFO - Database initialized/checked successfully.
+2026-03-23 12:03:12,827 - werkzeug - WARNING -  * Debugger is active!
+2026-03-23 12:03:12,832 - werkzeug - INFO -  * Debugger PIN: 199-107-668
+2026-03-23 12:03:21,284 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Shikhar Gupta\\PycharmProjects\\Xemo AI\\backend\\omex\\study_tools.py', reloading
+2026-03-23 12:03:21,658 - werkzeug - INFO -  * Restarting with stat
+2026-03-23 12:03:25,122 - __main__ - INFO - Database initialized/checked successfully.
+2026-03-23 12:03:25,160 - werkzeug - WARNING -  * Debugger is active!
+2026-03-23 12:03:25,169 - werkzeug - INFO -  * Debugger PIN: 199-107-668
+2026-03-23 12:03:33,425 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Shikhar Gupta\\PycharmProjects\\Xemo AI\\backend\\omex\\study_tools.py', reloading
+2026-03-23 12:03:33,634 - werkzeug - INFO -  * Restarting with stat
+2026-03-23 12:03:35,725 - __main__ - INFO - Database initialized/checked successfully.
+2026-03-23 12:03:35,749 - werkzeug - WARNING -  * Debugger is active!
+2026-03-23 12:03:35,756 - werkzeug - INFO -  * Debugger PIN: 199-107-668
+2026-03-23 12:03:47,715 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Shikhar Gupta\\PycharmProjects\\Xemo AI\\backend\\omex\\study_tools.py', reloading
+2026-03-23 12:03:48,046 - werkzeug - INFO -  * Restarting with stat
+2026-03-23 12:03:50,147 - __main__ - INFO - Database initialized/checked successfully.
+2026-03-23 12:03:50,172 - werkzeug - WARNING -  * Debugger is active!
+2026-03-23 12:03:50,180 - werkzeug - INFO -  * Debugger PIN: 199-107-668
+2026-03-23 12:03:59,246 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Shikhar Gupta\\PycharmProjects\\Xemo AI\\backend\\omex\\study_tools.py', reloading
+2026-03-23 12:03:59,571 - werkzeug - INFO -  * Restarting with stat
+2026-03-23 12:04:01,757 - __main__ - INFO - Database initialized/checked successfully.
+2026-03-23 12:04:01,775 - werkzeug - WARNING -  * Debugger is active!
+2026-03-23 12:04:01,780 - werkzeug - INFO -  * Debugger PIN: 199-107-668
+2026-03-23 12:04:10,583 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Shikhar Gupta\\PycharmProjects\\Xemo AI\\backend\\omex\\app.py', reloading
+2026-03-23 12:04:10,813 - werkzeug - INFO -  * Restarting with stat
+2026-03-23 12:04:12,925 - __main__ - INFO - Database initialized/checked successfully.
+2026-03-23 12:04:12,945 - werkzeug - WARNING -  * Debugger is active!
+2026-03-23 12:04:12,949 - werkzeug - INFO -  * Debugger PIN: 199-107-668
+2026-03-23 12:05:39,822 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Shikhar Gupta\\PycharmProjects\\Xemo AI\\backend\\omex\\study_tools.py', reloading
+2026-03-23 12:05:40,872 - werkzeug - INFO -  * Restarting with stat
+2026-03-23 12:05:46,023 - __main__ - INFO - Database initialized/checked successfully.
+2026-03-23 12:05:46,068 - werkzeug - WARNING -  * Debugger is active!
+2026-03-23 12:05:46,077 - werkzeug - INFO -  * Debugger PIN: 199-107-668
+2026-03-23 12:06:05,606 - app - INFO - Database initialized/checked successfully.
+2026-03-23 12:06:28,067 - werkzeug - INFO - 127.0.0.1 - - [23/Mar/2026 12:06:28] "GET / HTTP/1.1" 200 -
+2026-03-23 12:06:28,236 - werkzeug - INFO - 127.0.0.1 - - [23/Mar/2026 12:06:28] "GET /static/app.js HTTP/1.1" 200 -
+2026-03-23 12:06:28,237 - werkzeug - INFO - 127.0.0.1 - - [23/Mar/2026 12:06:28] "GET /static/styles.css HTTP/1.1" 200 -
+2026-03-23 12:06:28,383 - werkzeug - INFO - 127.0.0.1 - - [23/Mar/2026 12:06:28] "GET /api/library/documents HTTP/1.1" 200 -
+2026-03-23 12:06:30,665 - study_tools - INFO - Generating mock paper with model: openai/gpt-oss-120b:free
+2026-03-23 12:06:33,324 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-23 12:08:01,420 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-23 12:09:19,661 - openrouter_config - INFO - OPENROUTER_USAGE operation=Mock paper generation compact model=openai/gpt-oss-120b:free prompt_tokens=7993 completion_tokens=5109 total_tokens=13102 prompt_details=PromptTokensDetails(audio_tokens=0, cached_tokens=0, cache_write_tokens=0, video_tokens=0) completion_details=CompletionTokensDetails(accepted_prediction_tokens=None, audio_tokens=0, reasoning_tokens=1214, rejected_prediction_tokens=None, image_tokens=0)
+2026-03-23 12:09:19,670 - werkzeug - INFO - 127.0.0.1 - - [23/Mar/2026 12:09:19] "POST /api/library/mock-paper HTTP/1.1" 200 -
+2026-03-23 12:17:47,052 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-23 12:18:24,445 - openrouter_config - INFO - OPENROUTER_USAGE operation=Mock paper grading model=openai/gpt-oss-120b:free prompt_tokens=4947 completion_tokens=2822 total_tokens=7769 prompt_details=PromptTokensDetails(audio_tokens=0, cached_tokens=0, cache_write_tokens=0, video_tokens=0) completion_details=CompletionTokensDetails(accepted_prediction_tokens=None, audio_tokens=0, reasoning_tokens=720, rejected_prediction_tokens=None, image_tokens=0)
+2026-03-23 12:18:24,446 - werkzeug - INFO - 127.0.0.1 - - [23/Mar/2026 12:18:24] "POST /api/library/mock-paper/grade HTTP/1.1" 200 -
